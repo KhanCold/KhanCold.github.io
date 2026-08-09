@@ -17,7 +17,10 @@ test("exports the homepage as static HTML", async () => {
   assert.match(html, /air\.1688\.com\/kapp\/next1688\/merchantbench/);
   assert.match(html, /class="project-icon"/);
   assert.match(html, />project<\/a>/);
-  assert.ok(html.indexOf(">project</a>") < html.indexOf(">abstract</button>"));
+  const merchantBenchStart = html.indexOf("MerchantBench: Benchmarking LLM Agents");
+  const skillKdStart = html.indexOf("SKILL-KD", merchantBenchStart);
+  const merchantBenchHtml = html.slice(merchantBenchStart, skillKdStart);
+  assert.ok(merchantBenchHtml.indexOf(">project</a>") < merchantBenchHtml.indexOf(">abstract</button>"));
   assert.match(html, /class="hf-news-highlight">🏆 #1 Paper of the Day<\/strong>/);
   assert.match(html, /class="hf-daily-link"/);
   assert.doesNotMatch(html, /Released <a [^>]*><strong>MerchantBench<\/strong><\/a>/);
@@ -53,11 +56,38 @@ test("includes service entries below awards", async () => {
   assert.match(page, /粉丝数 2,000\+ · 浏览量 100 万\+/);
 });
 
+test("includes the two August papers only in the full publication data", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const newsStart = page.indexOf('language === "zh" ? "动态" : "News"');
+  const publicationsStart = page.indexOf(
+    'language === "zh" ? "精选论文" : "Selected Publications"',
+    newsStart,
+  );
+  const newsSource = page.slice(newsStart, publicationsStart);
+
+  assert.ok(newsStart >= 0);
+  assert.ok(publicationsStart > newsStart);
+  assert.doesNotMatch(newsSource, /POEM|Beyond Solution-Centric Search/);
+  assert.match(page, /POEM: Phase-Aware SO\(2\) Feature Rotation/);
+  assert.match(page, /Beyond Solution-Centric Search: Adaptive Inquiry/);
+  assert.match(page, /arxiv\.org\/abs\/2608\.03630/);
+  assert.match(page, /arxiv\.org\/abs\/2608\.02143/);
+  assert.match(page, /"Di Weng†"/);
+  assert.match(page, /"Linbo Jin†"/);
+  assert.match(page, /topics: \["Autoresearch", "Self-Improving"\]/);
+  assert.doesNotMatch(
+    page.slice(page.indexOf("function About"), page.indexOf("return (", page.indexOf("function About"))),
+    /POEM|Beyond Solution-Centric Search/,
+  );
+});
+
 test("includes assets required by GitHub Pages", async () => {
   await Promise.all([
     access(new URL("_next/", outputRoot)),
     access(new URL("assets/profile-full.jpg", outputRoot)),
     access(new URL("assets/papers/merchantbench.jpg", outputRoot)),
+    access(new URL("assets/papers/poem.jpg", outputRoot)),
+    access(new URL("assets/papers/beyond-solution-centric-search.jpg", outputRoot)),
     access(new URL("papers/spader.pdf", outputRoot)),
     access(new URL("favicon-32.png", outputRoot)),
     access(new URL(".nojekyll", outputRoot)),
