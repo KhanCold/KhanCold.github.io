@@ -292,6 +292,57 @@ const publications: Publication[] = [
   {
     year: "2026",
     title:
+      "POEM: Phase-Aware SO(2) Feature Rotation for Time Series Forecasting Under Periodicity Drift",
+    authors: [
+      "Jiawen Zhu",
+      "Shuhan Liu",
+      "Shengxuan Li",
+      "Qiming Shi",
+      "Di Weng†",
+    ],
+    abstract:
+      "Deep learning has advanced time series forecasting, but periodicity drift, in which cycle timing and phase vary over time, remains a challenging problem. Existing methods predominantly model these sequences on fixed time grids, suffering from a limited ability to accommodate phase-related variation. To address this limitation, we propose POEM, a phase-aware forecasting framework based on latent feature rotation using the special orthogonal group in two dimensions, denoted by SO(2). POEM aims to reduce the phase-related variability by learning a phase-correction coordinate and applying an invertible SO(2)-based rotation to paired latent features. To extrapolate this correction coordinate, Directional Phase Increment Attention (DPIA) retrieves historical phase increments from similar temporal contexts and integrates them into future phase corrections. Experiments demonstrate that POEM achieves competitive performance, while qualitative visualizations suggest that the learned phase-aware transformation makes latent trajectories more regular.",
+    abstractZh:
+      "深度学习推动了时间序列预测的发展，但周期漂移仍是一个具有挑战性的问题，其中周期的时间位置和相位会随时间变化。现有方法主要在固定时间网格上建模这类序列，适应相位变化的能力有限。为此，我们提出 POEM：一个基于二维特殊正交群 SO(2) 潜在特征旋转的相位感知预测框架。POEM 学习相位校正坐标，并对成对的潜在特征施加可逆的 SO(2) 旋转，以减少相位相关的变化。为外推该校正坐标，方向性相位增量注意力（DPIA）从相似时间上下文中检索历史相位增量，并将其整合到未来的相位校正中。实验表明，POEM 取得了有竞争力的性能；定性可视化进一步显示，所学习的相位感知变换能使潜在轨迹更加规整。",
+    venue: "arXiv 2026",
+    tag: "Time Series",
+    tagZh: "时间序列",
+    topics: ["Time Series", "Forecasting"],
+    image: publicAsset("/assets/papers/poem.jpg?v=8c07137a"),
+    pdf: "https://arxiv.org/pdf/2608.03630",
+    paper: "https://arxiv.org/abs/2608.03630",
+  },
+  {
+    year: "2026",
+    title:
+      "Beyond Solution-Centric Search: Adaptive Inquiry and Knowledge Revision for Autonomous ML Engineering",
+    authors: [
+      "Shaokang Fu",
+      "Yulong Tao",
+      "Linbo Jin†",
+      "Jiarong Zhao",
+      "Qiming Shi",
+      "Tianjun Pan",
+      "Haonan Li",
+      "Chengyu Wang",
+      "Jia Wu",
+      "Chengfu Huo",
+    ],
+    abstract:
+      "Long-horizon autonomous research tasks such as machine learning engineering require systems to make interdependent decisions under a limited budget. Existing LLM-based agents typically organize candidate-solution improvement through tree, graph, or chain structures, meaning that the search process determines how information is acquired and managed. We call this design solution-centric search and propose instead the information paradigm, in which an evolving information state represents the system's understanding of the task and guides solution improvement. We instantiate this paradigm in Iris, an inquiry-revision loop. For information acquisition, Iris generates local action plans from the current information state and uses epistemic actions to probe decision-critical unknowns without modifying the retained solution. For information management, Iris synthesizes observations across experiments into task knowledge composed of revisable claims with explicit scope and status. It updates this knowledge as new evidence arrives and constructs each decision context from raw evidence, structured summaries, or task knowledge at the required level of detail. On MLE-Bench, Iris attains a 64.9% any-medal rate under a 12-hour budget, the highest among compared systems. Across four tasks spanning harness engineering and model post-training, Iris also demonstrates cross-domain generalization.",
+    abstractZh:
+      "机器学习工程等长程自主研究任务要求系统在有限预算下做出相互依赖的决策。现有基于大语言模型的智能体通常通过树、图或链式结构组织候选方案改进，使搜索过程同时决定信息如何获取和管理。我们将这种设计称为以方案为中心的搜索，并提出信息范式：用持续演化的信息状态表示系统对任务的理解，并以此指导方案改进。我们将这一范式实例化为 Iris，一个由探询与修订组成的循环。Iris 从当前信息状态生成局部行动计划，利用认知型行动探查影响决策的未知因素；同时将跨实验观察综合为由可修订论断组成的任务知识，并随新证据到来持续更新。在 MLE-Bench 上，Iris 在 12 小时预算下取得 64.9% 的任意奖牌率，为对比系统中的最高成绩；在涵盖评测框架工程和模型后训练的四项任务上，也展现了跨领域泛化能力。",
+    venue: "arXiv 2026",
+    tag: "Autoresearch",
+    tagZh: "自主科研",
+    topics: ["Autoresearch", "Self-Improving"],
+    image: publicAsset("/assets/papers/beyond-solution-centric-search.jpg?v=fd3e972c"),
+    pdf: "https://arxiv.org/pdf/2608.02143",
+    paper: "https://arxiv.org/abs/2608.02143",
+  },
+  {
+    year: "2026",
+    title:
       "MerchantBench: Benchmarking LLM Agents for Long-Term Coherence in E-Commerce Operations",
     authors: [
       "Qiming Shi",
@@ -796,9 +847,13 @@ function Achievements({ language }: { language: Language }) {
 
 function About({ language, onSeeAll }: { language: Language; onSeeAll: () => void }) {
   const featured = publications.filter((publication) =>
-    ["MerchantBench", "SKILL-KD", "SPADER", "Cerebra", "Xavier"].some((name) =>
-      publication.title.startsWith(name),
-    ),
+    [
+      "MerchantBench",
+      "SKILL-KD",
+      "SPADER",
+      "Cerebra",
+      "Xavier",
+    ].some((name) => publication.title.startsWith(name)),
   );
 
   return (
