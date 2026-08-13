@@ -313,7 +313,7 @@ const publications: Publication[] = [
     venue: "arXiv 2026",
     tag: "OPD",
     tagZh: "自蒸馏",
-    topics: ["OPD", "Self-Distillation"],
+    topics: ["OPD", "Self-Improving"],
     image: publicAsset("/assets/papers/bcsd.jpg?v=260809555"),
     pdf: "https://arxiv.org/pdf/2608.09555",
     paper: "https://arxiv.org/abs/2608.09555",

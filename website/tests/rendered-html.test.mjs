@@ -79,7 +79,7 @@ test("includes the August papers only in the full publication data", async () =>
   assert.match(page, /arxiv\.org\/abs\/2608\.02143/);
   assert.match(page, /tag: "OPD"/);
   assert.match(page, /tagZh: "自蒸馏"/);
-  assert.match(page, /topics: \["OPD", "Self-Distillation"\]/);
+  assert.match(page, /topics: \["OPD", "Self-Improving"\]/);
   assert.match(bcsdSource, /"Linbo Jin†"/);
   assert.match(bcsdSource, /assets\/papers\/bcsd\.jpg/);
   assert.match(page, /"Di Weng†"/);
