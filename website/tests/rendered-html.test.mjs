@@ -56,7 +56,7 @@ test("includes service entries below awards", async () => {
   assert.match(page, /粉丝数 2,000\+ · 浏览量 100 万\+/);
 });
 
-test("includes the two August papers only in the full publication data", async () => {
+test("includes the August papers only in the full publication data", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
   const newsStart = page.indexOf('language === "zh" ? "动态" : "News"');
   const publicationsStart = page.indexOf(
@@ -64,20 +64,30 @@ test("includes the two August papers only in the full publication data", async (
     newsStart,
   );
   const newsSource = page.slice(newsStart, publicationsStart);
+  const bcsdStart = page.indexOf("Bidirectional Context Self-Distillation for Reinforcement Learning");
+  const bcsdEnd = page.indexOf("POEM: Phase-Aware", bcsdStart);
+  const bcsdSource = page.slice(bcsdStart, bcsdEnd);
 
   assert.ok(newsStart >= 0);
   assert.ok(publicationsStart > newsStart);
-  assert.doesNotMatch(newsSource, /POEM|Beyond Solution-Centric Search/);
+  assert.doesNotMatch(newsSource, /Bidirectional Context Self-Distillation|POEM|Beyond Solution-Centric Search/);
+  assert.match(page, /Bidirectional Context Self-Distillation for Reinforcement Learning/);
   assert.match(page, /POEM: Phase-Aware SO\(2\) Feature Rotation/);
   assert.match(page, /Beyond Solution-Centric Search: Adaptive Inquiry/);
+  assert.match(page, /arxiv\.org\/abs\/2608\.09555/);
   assert.match(page, /arxiv\.org\/abs\/2608\.03630/);
   assert.match(page, /arxiv\.org\/abs\/2608\.02143/);
+  assert.match(page, /tag: "OPD"/);
+  assert.match(page, /tagZh: "自蒸馏"/);
+  assert.match(page, /topics: \["OPD", "Self-Distillation"\]/);
+  assert.match(bcsdSource, /"Linbo Jin†"/);
+  assert.match(bcsdSource, /assets\/papers\/bcsd\.jpg/);
   assert.match(page, /"Di Weng†"/);
   assert.match(page, /"Linbo Jin†"/);
   assert.match(page, /topics: \["Autoresearch", "Self-Improving"\]/);
   assert.doesNotMatch(
     page.slice(page.indexOf("function About"), page.indexOf("return (", page.indexOf("function About"))),
-    /POEM|Beyond Solution-Centric Search/,
+    /Bidirectional Context Self-Distillation|POEM|Beyond Solution-Centric Search/,
   );
 });
 
@@ -86,6 +96,7 @@ test("includes assets required by GitHub Pages", async () => {
     access(new URL("_next/", outputRoot)),
     access(new URL("assets/profile-full.jpg", outputRoot)),
     access(new URL("assets/papers/merchantbench.jpg", outputRoot)),
+    access(new URL("assets/papers/bcsd.jpg", outputRoot)),
     access(new URL("assets/papers/poem.jpg", outputRoot)),
     access(new URL("assets/papers/beyond-solution-centric-search.jpg", outputRoot)),
     access(new URL("papers/spader.pdf", outputRoot)),

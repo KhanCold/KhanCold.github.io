@@ -292,6 +292,35 @@ const publications: Publication[] = [
   {
     year: "2026",
     title:
+      "Bidirectional Context Self-Distillation for Reinforcement Learning of Skill-Based LLM Agents",
+    authors: [
+      "Tianjun Pan",
+      "Yuan Li",
+      "Hongda Wang",
+      "Linbo Jin†",
+      "Mengfei Song",
+      "Lei Gao",
+      "Qiming Shi",
+      "Shaokang Fu",
+      "Jiarong Zhao",
+      "Chengyu Wang",
+      "Chengfu Huo",
+    ],
+    abstract:
+      "External natural-language skills can guide LLM agents through complex tasks, but agents still need to learn how to turn that guidance into effective actions. We introduce BCSD, a bidirectional context self-distillation framework that augments reinforcement learning with token-level supervision from two complementary views of each trajectory. One view adds higher-level Meta-Skill guidance, while the other removes general guidance to emphasize task-specific skills; BCSD combines their signals to rescale the reinforcement learning advantage. Experiments on ALFWorld and WebShop show consistent improvements across model scales, and ablations confirm that the two context views make complementary contributions.",
+    abstractZh:
+      "外部自然语言技能可以为大语言模型智能体解决复杂任务提供可复用、可编辑的指导，但智能体仍需学会将这些指导转化为有效行动。我们提出 BCSD，一种双向上下文自蒸馏框架，通过同一轨迹的两种互补上下文视角，为强化学习引入词元级监督：增强视角加入更高层的元技能指导，精简视角则移除通用指导以突出任务特定技能；二者的信号被联合用于重缩放强化学习优势。在 ALFWorld 和 WebShop 上的实验表明，BCSD 在不同模型规模下均能稳定提升表现，消融实验也验证了两种上下文视角的互补作用。",
+    venue: "arXiv 2026",
+    tag: "OPD",
+    tagZh: "自蒸馏",
+    topics: ["OPD", "Self-Distillation"],
+    image: publicAsset("/assets/papers/bcsd.jpg?v=260809555"),
+    pdf: "https://arxiv.org/pdf/2608.09555",
+    paper: "https://arxiv.org/abs/2608.09555",
+  },
+  {
+    year: "2026",
+    title:
       "POEM: Phase-Aware SO(2) Feature Rotation for Time Series Forecasting Under Periodicity Drift",
     authors: [
       "Jiawen Zhu",
