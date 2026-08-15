@@ -875,6 +875,7 @@ function Achievements({ language }: { language: Language }) {
 }
 
 function About({ language, onSeeAll }: { language: Language; onSeeAll: () => void }) {
+  const [showAllNews, setShowAllNews] = useState(false);
   const featured = publications.filter((publication) =>
     [
       "MerchantBench",
@@ -967,7 +968,17 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
 
       <section className="content-section">
         <SectionTitle>{language === "zh" ? "动态" : "News"}</SectionTitle>
-        <div className="dated-list">
+        <div className="dated-list" id="news-list">
+          <div className="dated-row">
+            <time>2026.08</time>
+            <p>
+              {language === "zh" ? (
+                <>我们提交的一个 Pull Request 已被 <strong>Hermes</strong> 合并。</>
+              ) : (
+                <>One of our pull requests was merged into <strong>Hermes</strong>.</>
+              )}
+            </p>
+          </div>
           <div className="dated-row">
             <time>2026.08</time>
             <p>
@@ -1008,7 +1019,7 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
               )}
             </p>
           </div>
-          <div className="dated-row">
+          <div className="dated-row" hidden={!showAllNews}>
             <time>2026.03</time>
             <p>
               {language === "zh"
@@ -1017,6 +1028,21 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
             </p>
           </div>
         </div>
+        <button
+          className="news-toggle"
+          type="button"
+          aria-controls="news-list"
+          aria-expanded={showAllNews}
+          onClick={() => setShowAllNews((current) => !current)}
+        >
+          {showAllNews
+            ? language === "zh"
+              ? "收起"
+              : "Show less"
+            : language === "zh"
+              ? "显示更多"
+              : "Show more"}
+        </button>
       </section>
 
       <section className="content-section">
@@ -1202,7 +1228,11 @@ function Vita({ language }: { language: Language }) {
         <SectionTitle>{language === "zh" ? "社区服务" : "Service"}</SectionTitle>
         <VitaRow
           when="2026"
-          title={language === "zh" ? "OpenClaw 贡献者" : "OpenClaw Contributor"}
+          title={
+            language === "zh"
+              ? "OpenClaw & Hermes 贡献者"
+              : "OpenClaw&Hermes Contributor"
+          }
         />
         <VitaRow
           when="2025"

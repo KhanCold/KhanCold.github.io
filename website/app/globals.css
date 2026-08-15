@@ -333,6 +333,26 @@ button {
   margin-top: 10px;
 }
 
+.news-toggle {
+  margin: 12px 0 0 98px;
+  padding: 1px 7px;
+  color: var(--secondary);
+  background: var(--hover);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10px;
+  line-height: inherit;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.news-toggle:hover,
+.news-toggle:focus-visible {
+  color: var(--accent);
+}
+
 .vita-detail-section .vita-row + .vita-row {
   margin-top: 24px;
 }
@@ -998,6 +1018,10 @@ button {
   .dated-row {
     grid-template-columns: 72px minmax(0, 1fr);
     column-gap: 12px;
+  }
+
+  .news-toggle {
+    margin-left: 84px;
   }
 
   .vita-row {

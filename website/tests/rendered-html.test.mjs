@@ -50,10 +50,22 @@ test("includes service entries below awards", async () => {
 
   assert.ok(awardsIndex >= 0);
   assert.ok(serviceIndex > awardsIndex);
-  assert.match(page.slice(serviceIndex), /OpenClaw Contributor/);
+  assert.match(page.slice(serviceIndex), /OpenClaw&Hermes Contributor/);
   assert.match(page.slice(serviceIndex), /2,000\+ Followers · 1M\+ Views/);
   assert.match(page, /社区服务/);
   assert.match(page, /粉丝数 2,000\+ · 浏览量 100 万\+/);
+});
+
+test("shows four news entries by default and can reveal the rest", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+
+  assert.match(page, /One of our pull requests was merged into <strong>Hermes<\/strong>/);
+  assert.match(page, /我们提交的一个 Pull Request 已被 <strong>Hermes<\/strong> 合并/);
+  assert.match(page, /const \[showAllNews, setShowAllNews\] = useState\(false\)/);
+  assert.match(page, /className="dated-row" hidden=\{!showAllNews\}/);
+  assert.match(page, /aria-expanded=\{showAllNews\}/);
+  assert.match(page, /"Show more"/);
+  assert.match(page, /"Show less"/);
 });
 
 test("includes the August papers only in the full publication data", async () => {
