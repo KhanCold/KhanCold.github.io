@@ -19,7 +19,10 @@ test("exports the homepage as static HTML", async () => {
   assert.match(html, />project<\/a>/);
   const merchantBenchStart = html.indexOf("MerchantBench: Benchmarking LLM Agents");
   const skillKdStart = html.indexOf("SKILL-KD", merchantBenchStart);
+  const spaderStart = html.indexOf("SPADER: Step-wise Peer Advantage", skillKdStart);
   const merchantBenchHtml = html.slice(merchantBenchStart, skillKdStart);
+  assert.ok(merchantBenchStart < skillKdStart);
+  assert.ok(skillKdStart < spaderStart);
   assert.ok(merchantBenchHtml.indexOf(">project</a>") < merchantBenchHtml.indexOf(">abstract</button>"));
   assert.match(html, /class="hf-news-highlight">🏆 #1 Paper of the Day<\/strong>/);
   assert.match(html, /class="hf-daily-link"/);
@@ -122,9 +125,9 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
   const modalityStart = page.indexOf(
     "Modality Fault Lines: Structural Corruptions Reveal Fragile Omni-Modal Reasoning",
   );
-  const skillKdStart = page.indexOf("SKILL-KD: Contrastive Skill Distillation", modalityStart);
   const birdSource = page.slice(birdStart, modalityStart);
-  const modalitySource = page.slice(modalityStart, skillKdStart);
+  const modalityEnd = page.indexOf('title: "Cerebra:', modalityStart);
+  const modalitySource = page.slice(modalityStart, modalityEnd);
   const aboutStart = page.indexOf("function About");
   const aboutReturn = page.indexOf("return (", aboutStart);
   const featuredSource = page.slice(aboutStart, aboutReturn);
@@ -132,7 +135,6 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
   assert.ok(spaderStart >= 0);
   assert.ok(spaderStart < birdStart);
   assert.ok(birdStart < modalityStart);
-  assert.ok(modalityStart < skillKdStart);
   assert.doesNotMatch(featuredSource, /BIRD-History|Modality Fault Lines/);
 
   assert.match(birdSource, /authors: \["Yunfan Zhou", "Qiming Shi", "Yizhou Yang", "Di Weng", "Yingcai Wu"\]/);

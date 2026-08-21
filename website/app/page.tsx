@@ -405,6 +405,31 @@ const publications: Publication[] = [
   },
   {
     year: "2026",
+    title: "SKILL-KD: Contrastive Skill Distillation for LLM Agents",
+    authors: [
+      "Qiming Shi",
+      "Yibo Dou",
+      "Jiawen Zhu",
+      "Yulong Tao",
+      "Linbo Jin",
+      "Zhaolu Kang",
+      "Yunfan Zhou",
+      "Di Weng†",
+    ],
+    abstract:
+      "Skill-based prompting has become a practical mechanism for improving large language model agents, yet existing skill acquisition methods often treat skills as experience summaries, memory entries, or direct summaries of successful demonstrations. We propose SKILL-KD, a contrastive skill distillation framework that treats skills as an explicit distillation medium between agents of different capabilities. Given a student failure and the teacher trajectory on the same task, SKILL-KD distills their actionable discrepancy into a textual skill patch, evaluates the patch by re-running the student, and iteratively refines the patch when the student still fails. Drift-Aware Skill Consolidation maintains trace-linked edit histories and controls how new patches update the skill library. Across five agent benchmarks and two student settings, SKILL-KD consistently improves frozen student agents over fixed-model adaptation baselines.",
+    abstractZh:
+      "基于技能的提示已成为提升大语言模型智能体能力的实用机制，但现有技能获取方法往往将技能视为经验总结、记忆条目，或对成功示范的直接概括。我们提出 SKILL-KD，一种对比式技能蒸馏框架，将技能作为不同能力智能体之间显式的蒸馏媒介。给定学生智能体的一次失败及教师智能体在同一任务上的轨迹，SKILL-KD 将二者之间可执行的差异蒸馏为文本技能补丁，通过重新运行学生智能体评估补丁，并在学生仍然失败时迭代优化。漂移感知技能整合机制维护与轨迹关联的编辑历史，并控制新补丁如何更新技能库。在五个智能体基准和两种学生模型设置上，SKILL-KD 均能稳定提升冻结学生智能体，优于固定模型适配基线。",
+    venue: "arXiv 2026",
+    tag: "Self-Improving",
+    tagZh: "自进化",
+    topics: ["Self-Improving", "Skills"],
+    image: publicAsset("/assets/papers/skill-kd-card.jpg?v=2be0f667"),
+    pdf: "https://arxiv.org/pdf/2607.28048",
+    paper: "https://arxiv.org/abs/2607.28048",
+  },
+  {
+    year: "2026",
     title:
       "SPADER: Step-wise Peer Advantage with Diversity-Aware Exploration Rewards for Multi-Answer Question Answering",
     authors: [
@@ -465,31 +490,6 @@ const publications: Publication[] = [
     tagZh: "多模态",
     topics: ["Multimodal", "Benchmark"],
     image: publicAsset("/assets/papers/modality-fault-lines-card.jpg"),
-  },
-  {
-    year: "2026",
-    title: "SKILL-KD: Contrastive Skill Distillation for LLM Agents",
-    authors: [
-      "Qiming Shi",
-      "Yibo Dou",
-      "Jiawen Zhu",
-      "Yulong Tao",
-      "Linbo Jin",
-      "Zhaolu Kang",
-      "Yunfan Zhou",
-      "Di Weng†",
-    ],
-    abstract:
-      "Skill-based prompting has become a practical mechanism for improving large language model agents, yet existing skill acquisition methods often treat skills as experience summaries, memory entries, or direct summaries of successful demonstrations. We propose SKILL-KD, a contrastive skill distillation framework that treats skills as an explicit distillation medium between agents of different capabilities. Given a student failure and the teacher trajectory on the same task, SKILL-KD distills their actionable discrepancy into a textual skill patch, evaluates the patch by re-running the student, and iteratively refines the patch when the student still fails. Drift-Aware Skill Consolidation maintains trace-linked edit histories and controls how new patches update the skill library. Across five agent benchmarks and two student settings, SKILL-KD consistently improves frozen student agents over fixed-model adaptation baselines.",
-    abstractZh:
-      "基于技能的提示已成为提升大语言模型智能体能力的实用机制，但现有技能获取方法往往将技能视为经验总结、记忆条目，或对成功示范的直接概括。我们提出 SKILL-KD，一种对比式技能蒸馏框架，将技能作为不同能力智能体之间显式的蒸馏媒介。给定学生智能体的一次失败及教师智能体在同一任务上的轨迹，SKILL-KD 将二者之间可执行的差异蒸馏为文本技能补丁，通过重新运行学生智能体评估补丁，并在学生仍然失败时迭代优化。漂移感知技能整合机制维护与轨迹关联的编辑历史，并控制新补丁如何更新技能库。在五个智能体基准和两种学生模型设置上，SKILL-KD 均能稳定提升冻结学生智能体，优于固定模型适配基线。",
-    venue: "arXiv 2026",
-    tag: "Self-Improving",
-    tagZh: "自进化",
-    topics: ["Self-Improving", "Skills"],
-    image: publicAsset("/assets/papers/skill-kd-card.jpg?v=2be0f667"),
-    pdf: "https://arxiv.org/pdf/2607.28048",
-    paper: "https://arxiv.org/abs/2607.28048",
   },
   {
     year: "2026",
