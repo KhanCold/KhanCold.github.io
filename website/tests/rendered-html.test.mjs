@@ -59,13 +59,88 @@ test("includes service entries below awards", async () => {
 test("shows four news entries by default and can reveal the rest", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
 
+  assert.match(
+    page,
+    /Three papers: <strong>SPADER<\/strong>, <strong>BIRD-History<\/strong>, and\{" "\}/,
+  );
+  assert.match(
+    page,
+    /<strong>Modality Fault Lines<\/strong>\s*<br \/>\s*were accepted to <strong>EMNLP 2026<\/strong>\./,
+  );
+  assert.match(page, /<strong>EMNLP 2026<\/strong>\. Papers coming soon/);
+  assert.match(page, /Papers coming soon for BIRD-History\s+and Modality Fault Lines\./);
+  assert.match(
+    page,
+    /我们的三篇论文：<strong>SPADER<\/strong>、<strong>BIRD-History<\/strong> 和\{" "\}/,
+  );
+  assert.match(
+    page,
+    /<strong>Modality Fault Lines<\/strong>\s*<br \/>\s*被 <strong>EMNLP 2026<\/strong> 接收。/,
+  );
+  assert.match(page, /<strong>EMNLP 2026<\/strong> 接收。 BIRD-History/);
+  assert.match(page, /BIRD-History 与 Modality Fault Lines\s+的论文即将上线。/);
   assert.match(page, /One of our pull requests was merged into <strong>Hermes<\/strong>/);
   assert.match(page, /我们提交的一个 Pull Request 已被 <strong>Hermes<\/strong> 合并/);
   assert.match(page, /const \[showAllNews, setShowAllNews\] = useState\(false\)/);
+  assert.match(
+    page,
+    /className="dated-row" hidden=\{!showAllNews\}>\s*<time>2026\.04<\/time>/,
+  );
   assert.match(page, /className="dated-row" hidden=\{!showAllNews\}/);
   assert.match(page, /aria-expanded=\{showAllNews\}/);
   assert.match(page, /"Show more"/);
   assert.match(page, /"Show less"/);
+});
+
+test("lists SPADER as an EMNLP 2026 paper", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const spaderStart = page.indexOf(
+    "SPADER: Step-wise Peer Advantage with Diversity-Aware Exploration Rewards",
+  );
+  const spaderEnd = page.indexOf('title: "Cerebra:', spaderStart);
+  const spaderSource = page.slice(spaderStart, spaderEnd);
+
+  assert.ok(spaderStart >= 0);
+  assert.ok(spaderEnd > spaderStart);
+  assert.match(spaderSource, /venue: "EMNLP 2026"/);
+});
+
+test("adds the two EMNLP Findings papers only to full publications in the requested order", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const spaderStart = page.indexOf(
+    "SPADER: Step-wise Peer Advantage with Diversity-Aware Exploration Rewards",
+  );
+  const birdStart = page.indexOf(
+    "BIRD-History: A Benchmark for History-Driven Text-to-SQL with Fine-Grained Knowledge Annotations",
+  );
+  const modalityStart = page.indexOf(
+    "Modality Fault Lines: Structural Corruptions Reveal Fragile Omni-Modal Reasoning",
+  );
+  const skillKdStart = page.indexOf("SKILL-KD: Contrastive Skill Distillation", modalityStart);
+  const birdSource = page.slice(birdStart, modalityStart);
+  const modalitySource = page.slice(modalityStart, skillKdStart);
+  const aboutStart = page.indexOf("function About");
+  const aboutReturn = page.indexOf("return (", aboutStart);
+  const featuredSource = page.slice(aboutStart, aboutReturn);
+
+  assert.ok(spaderStart >= 0);
+  assert.ok(spaderStart < birdStart);
+  assert.ok(birdStart < modalityStart);
+  assert.ok(modalityStart < skillKdStart);
+  assert.doesNotMatch(featuredSource, /BIRD-History|Modality Fault Lines/);
+
+  assert.match(birdSource, /authors: \["Yunfan Zhou", "Qiming Shi", "Yizhou Yang", "Di Weng", "Yingcai Wu"\]/);
+  assert.match(birdSource, /venue: "EMNLP 2026 Findings"/);
+  assert.match(birdSource, /topics: \["Code LLM", "Benchmark"\]/);
+  assert.match(birdSource, /assets\/papers\/bird-history\.jpg/);
+  assert.doesNotMatch(birdSource, /\n\s+paper:/);
+
+  assert.match(modalitySource, /"Zhaolu Kang"[\s\S]*?"Meixin Wu"[\s\S]*?"Qiming Shi"/);
+  assert.match(modalitySource, /"Richeng Xuan"[\s\S]*?"Zhichao Hu"/);
+  assert.match(modalitySource, /venue: "EMNLP 2026 Findings"/);
+  assert.match(modalitySource, /topics: \["Multimodal", "Benchmark"\]/);
+  assert.match(modalitySource, /assets\/papers\/modality-fault-lines\.jpg/);
+  assert.doesNotMatch(modalitySource, /\n\s+paper:/);
 });
 
 test("includes the August papers only in the full publication data", async () => {
@@ -111,6 +186,8 @@ test("includes assets required by GitHub Pages", async () => {
     access(new URL("assets/papers/bcsd.jpg", outputRoot)),
     access(new URL("assets/papers/poem.jpg", outputRoot)),
     access(new URL("assets/papers/beyond-solution-centric-search.jpg", outputRoot)),
+    access(new URL("assets/papers/bird-history.jpg", outputRoot)),
+    access(new URL("assets/papers/modality-fault-lines.jpg", outputRoot)),
     access(new URL("papers/spader.pdf", outputRoot)),
     access(new URL("favicon-32.png", outputRoot)),
     access(new URL(".nojekyll", outputRoot)),
