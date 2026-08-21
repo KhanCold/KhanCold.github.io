@@ -41,6 +41,12 @@ test("exports the homepage as static HTML", async () => {
   assert.doesNotMatch(html, />pdf<\/a>/);
   assert.doesNotMatch(html, /Excel Copilot|Data Intelligence/);
   assert.match(html, /favicon-32\.png/);
+  assert.match(html, /profile-optimized\.jpg/);
+  assert.match(html, /merchantbench-card\.jpg[^>]*loading="lazy"[^>]*decoding="async"/);
+  assert.doesNotMatch(
+    html,
+    /<link rel="preload" as="image" href="\/assets\/papers\/[^"?]+-card\.jpg/,
+  );
 });
 
 test("includes service entries below awards", async () => {
@@ -132,14 +138,14 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
   assert.match(birdSource, /authors: \["Yunfan Zhou", "Qiming Shi", "Yizhou Yang", "Di Weng", "Yingcai Wu"\]/);
   assert.match(birdSource, /venue: "EMNLP 2026 Findings"/);
   assert.match(birdSource, /topics: \["Code LLM", "Benchmark"\]/);
-  assert.match(birdSource, /assets\/papers\/bird-history\.jpg/);
+  assert.match(birdSource, /assets\/papers\/bird-history-card\.jpg/);
   assert.doesNotMatch(birdSource, /\n\s+paper:/);
 
   assert.match(modalitySource, /"Zhaolu Kang"[\s\S]*?"Meixin Wu"[\s\S]*?"Qiming Shi"/);
   assert.match(modalitySource, /"Richeng Xuan"[\s\S]*?"Zhichao Hu"/);
   assert.match(modalitySource, /venue: "EMNLP 2026 Findings"/);
   assert.match(modalitySource, /topics: \["Multimodal", "Benchmark"\]/);
-  assert.match(modalitySource, /assets\/papers\/modality-fault-lines\.jpg/);
+  assert.match(modalitySource, /assets\/papers\/modality-fault-lines-card\.jpg/);
   assert.doesNotMatch(modalitySource, /\n\s+paper:/);
 });
 
@@ -168,7 +174,7 @@ test("includes the August papers only in the full publication data", async () =>
   assert.match(page, /tagZh: "自蒸馏"/);
   assert.match(page, /topics: \["OPD", "Self-Improving"\]/);
   assert.match(bcsdSource, /"Linbo Jin†"/);
-  assert.match(bcsdSource, /assets\/papers\/bcsd\.jpg/);
+  assert.match(bcsdSource, /assets\/papers\/bcsd-card\.jpg/);
   assert.match(page, /"Di Weng†"/);
   assert.match(page, /"Linbo Jin†"/);
   assert.match(page, /topics: \["Autoresearch", "Self-Improving"\]/);
@@ -181,13 +187,17 @@ test("includes the August papers only in the full publication data", async () =>
 test("includes assets required by GitHub Pages", async () => {
   await Promise.all([
     access(new URL("_next/", outputRoot)),
-    access(new URL("assets/profile-full.jpg", outputRoot)),
-    access(new URL("assets/papers/merchantbench.jpg", outputRoot)),
-    access(new URL("assets/papers/bcsd.jpg", outputRoot)),
-    access(new URL("assets/papers/poem.jpg", outputRoot)),
-    access(new URL("assets/papers/beyond-solution-centric-search.jpg", outputRoot)),
-    access(new URL("assets/papers/bird-history.jpg", outputRoot)),
-    access(new URL("assets/papers/modality-fault-lines.jpg", outputRoot)),
+    access(new URL("assets/profile-optimized.jpg", outputRoot)),
+    access(new URL("assets/papers/merchantbench-card.jpg", outputRoot)),
+    access(new URL("assets/papers/bcsd-card.jpg", outputRoot)),
+    access(new URL("assets/papers/poem-card.jpg", outputRoot)),
+    access(new URL("assets/papers/beyond-solution-centric-search-card.jpg", outputRoot)),
+    access(new URL("assets/papers/bird-history-card.jpg", outputRoot)),
+    access(new URL("assets/papers/modality-fault-lines-card.jpg", outputRoot)),
+    access(new URL("assets/papers/spader-card.jpg", outputRoot)),
+    access(new URL("assets/papers/skill-kd-card.jpg", outputRoot)),
+    access(new URL("assets/papers/cerebra-card.jpg", outputRoot)),
+    access(new URL("assets/papers/xavier-card.jpg", outputRoot)),
     access(new URL("papers/spader.pdf", outputRoot)),
     access(new URL("favicon-32.png", outputRoot)),
     access(new URL(".nojekyll", outputRoot)),

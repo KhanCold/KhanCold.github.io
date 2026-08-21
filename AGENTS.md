@@ -26,6 +26,14 @@ Use TypeScript/TSX with two-space indentation, double quotes, semicolons, and tr
 
 Tests use Node's built-in `node:test` and strict assertions. Name new files `*.test.mjs` in `website/tests/`. Add focused checks for rendered HTML, required static assets, and configuration whenever content or deployment behavior changes. There is no numeric coverage threshold; every change should protect its user-visible or build-critical behavior. Run `npm test` before opening a pull request.
 
+## Local-First Workflow & Performance Conventions
+
+Treat requests such as “先本地部署” or “不要 push” as a strict boundary: edit, build, test, and preview locally only. Do not commit, push, open a pull request, trigger GitHub Pages, or otherwise mutate remote state until the user explicitly approves publishing. Reuse an existing matching server on port 3000 when available instead of terminating unrelated processes, and verify the local production export at `http://localhost:3000` after the final build.
+
+For performance work, measure before changing code and prefer the smallest high-impact fix. Prioritize appropriately sized static assets, native lazy loading for below-the-fold images, explicit image dimensions, asynchronous decoding, and high priority only for genuinely critical above-the-fold media. Preserve original source images when generating lighter display assets unless cleanup is explicitly requested. Avoid adding image CDNs, runtime optimization services, dependencies, or broad component refactors unless measurements show that the simpler static approach is insufficient; in this static export, `next/image` does not provide automatic optimization while `images.unoptimized` remains enabled.
+
+Validate performance changes with `npm run lint`, `npm test`, and real browser checks at desktop and mobile widths. Confirm that required images load after scrolling, no horizontal overflow or layout shift is introduced, and below-the-fold images are not emitted as initial preload links. Add focused rendered-HTML or asset-existence assertions for these guarantees. Do not compare localhost Lighthouse scores directly with GitHub Pages because the local static server does not reproduce production compression, CDN routing, or cache headers; report request counts and transferred asset bytes locally, then measure the live site only after publishing is authorized.
+
 ## Commit & Pull Request Guidelines
 
 The current history uses a short, lowercase, imperative subject (`publish academic homepage`). Follow that style and keep each commit focused. Pull requests should summarize the change, list verification commands, and link relevant issues. Include before/after screenshots for layout, responsive, typography, or asset changes. Call out changes to Pages paths, environment variables, database schema, or generated migrations explicitly.

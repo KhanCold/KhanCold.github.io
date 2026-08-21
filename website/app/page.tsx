@@ -314,7 +314,7 @@ const publications: Publication[] = [
     tag: "OPD",
     tagZh: "自蒸馏",
     topics: ["OPD", "Self-Improving"],
-    image: publicAsset("/assets/papers/bcsd.jpg?v=260809555"),
+    image: publicAsset("/assets/papers/bcsd-card.jpg?v=260809555"),
     pdf: "https://arxiv.org/pdf/2608.09555",
     paper: "https://arxiv.org/abs/2608.09555",
   },
@@ -337,7 +337,7 @@ const publications: Publication[] = [
     tag: "Time Series",
     tagZh: "时间序列",
     topics: ["Time Series", "Forecasting"],
-    image: publicAsset("/assets/papers/poem.jpg?v=8c07137a"),
+    image: publicAsset("/assets/papers/poem-card.jpg?v=8c07137a"),
     pdf: "https://arxiv.org/pdf/2608.03630",
     paper: "https://arxiv.org/abs/2608.03630",
   },
@@ -365,7 +365,7 @@ const publications: Publication[] = [
     tag: "Autoresearch",
     tagZh: "自主科研",
     topics: ["Autoresearch", "Self-Improving"],
-    image: publicAsset("/assets/papers/beyond-solution-centric-search.jpg?v=fd3e972c"),
+    image: publicAsset("/assets/papers/beyond-solution-centric-search-card.jpg?v=fd3e972c"),
     pdf: "https://arxiv.org/pdf/2608.02143",
     paper: "https://arxiv.org/abs/2608.02143",
   },
@@ -396,7 +396,7 @@ const publications: Publication[] = [
     tag: "Long-Horizon",
     tagZh: "长程智能体",
     topics: ["Long-Horizon", "Benchmark"],
-    image: publicAsset("/assets/papers/merchantbench.jpg?v=c49cd1c5"),
+    image: publicAsset("/assets/papers/merchantbench-card.jpg?v=c49cd1c5"),
     project: merchantBenchProjectUrl,
     pdf: "https://arxiv.org/pdf/2607.28956",
     paper: "https://arxiv.org/abs/2607.28956",
@@ -422,7 +422,7 @@ const publications: Publication[] = [
     tag: "Agentic RL",
     tagZh: "智能体强化学习",
     topics: ["Agentic RL", "Search Agent"],
-    image: publicAsset("/assets/papers/spader.jpg?v=50eafc60"),
+    image: publicAsset("/assets/papers/spader-card.jpg?v=50eafc60"),
     pdf: publicAsset("/papers/spader.pdf"),
     paper: "https://arxiv.org/abs/2606.00593",
     code: "https://github.com/KhanCold/spader",
@@ -440,7 +440,7 @@ const publications: Publication[] = [
     tag: "Code LLM",
     tagZh: "代码大模型",
     topics: ["Code LLM", "Benchmark"],
-    image: publicAsset("/assets/papers/bird-history.jpg"),
+    image: publicAsset("/assets/papers/bird-history-card.jpg"),
   },
   {
     year: "2026",
@@ -464,7 +464,7 @@ const publications: Publication[] = [
     tag: "Multimodal",
     tagZh: "多模态",
     topics: ["Multimodal", "Benchmark"],
-    image: publicAsset("/assets/papers/modality-fault-lines.jpg"),
+    image: publicAsset("/assets/papers/modality-fault-lines-card.jpg"),
   },
   {
     year: "2026",
@@ -487,7 +487,7 @@ const publications: Publication[] = [
     tag: "Self-Improving",
     tagZh: "自进化",
     topics: ["Self-Improving", "Skills"],
-    image: publicAsset("/assets/papers/skill-kd.jpg?v=2be0f667"),
+    image: publicAsset("/assets/papers/skill-kd-card.jpg?v=2be0f667"),
     pdf: "https://arxiv.org/pdf/2607.28048",
     paper: "https://arxiv.org/abs/2607.28048",
   },
@@ -513,7 +513,7 @@ const publications: Publication[] = [
     tag: "Code LLM",
     tagZh: "代码大模型",
     topics: ["Code LLM", "HCI"],
-    image: publicAsset("/assets/papers/cerebra.jpg?v=6e34d5c2"),
+    image: publicAsset("/assets/papers/cerebra-card.jpg?v=6e34d5c2"),
     pdf: publicAsset("/papers/cerebra.pdf"),
     paper: "https://doi.org/10.1145/3772318.3790974",
     code: "https://github.com/zjuidg/CHI26-Cerebra",
@@ -541,7 +541,7 @@ const publications: Publication[] = [
     tag: "Code LLM",
     tagZh: "代码大模型",
     topics: ["Code LLM", "HCI"],
-    image: publicAsset("/assets/papers/xavier.jpg?v=9f43a5b1"),
+    image: publicAsset("/assets/papers/xavier-card.jpg?v=9f43a5b1"),
     pdf: publicAsset("/papers/xavier.pdf"),
     paper: "https://doi.org/10.1145/3706598.3714239",
     code: "https://github.com/CHI25-Xavier/Xavier",
@@ -579,7 +579,14 @@ function PaperVisual({ publication, language }: { publication: Publication; lang
   return (
     <div className="paper-visual" aria-hidden="true">
       {publication.image ? (
-        <img src={publication.image} alt="" />
+        <img
+          src={publication.image}
+          alt=""
+          width={160}
+          height={112}
+          loading="lazy"
+          decoding="async"
+        />
       ) : (
         <div className="paper-placeholder">{publication.monogram}</div>
       )}
@@ -700,8 +707,12 @@ function Sidebar({
       >
         <img
           className="profile-photo"
-          src={publicAsset("/assets/profile-full.jpg")}
+          src={publicAsset("/assets/profile-optimized.jpg")}
           alt="Qiming Shi in Shanghai"
+          width={512}
+          height={683}
+          fetchPriority="high"
+          decoding="async"
           draggable={false}
         />
       </button>
