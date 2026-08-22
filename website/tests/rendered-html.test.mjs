@@ -219,6 +219,36 @@ test("keeps the Zhejiang University logo clear of mobile education dates", async
   );
 });
 
+test("uses compact, readable layouts on phone-sized screens", async () => {
+  const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
+  const tabletMediaStart = css.indexOf("@media (max-width: 780px)");
+  const phoneMediaStart = css.indexOf("@media (max-width: 560px)");
+  const reducedMotionStart = css.indexOf("@media (prefers-reduced-motion", phoneMediaStart);
+  const tabletCss = css.slice(tabletMediaStart, phoneMediaStart);
+  const phoneCss = css.slice(phoneMediaStart, reducedMotionStart);
+
+  assert.match(
+    tabletCss,
+    /\.sidebar\s*\{[\s\S]*?display:\s*grid;[\s\S]*?grid-template-columns:\s*112px minmax\(0, 1fr\)/,
+  );
+  assert.match(
+    phoneCss,
+    /\.vita-row\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\);[\s\S]*?row-gap:\s*6px/,
+  );
+  assert.match(
+    phoneCss,
+    /\.vita-row > time\s*\{[\s\S]*?text-align:\s*left;[\s\S]*?white-space:\s*nowrap/,
+  );
+  assert.match(
+    phoneCss,
+    /\.vita-body\s*\{[\s\S]*?grid-template-columns:\s*52px minmax\(0, 1fr\)/,
+  );
+  assert.match(
+    phoneCss,
+    /\.paper-visual\s*\{[\s\S]*?width:\s*min\(280px, 100%\);[\s\S]*?aspect-ratio:\s*10 \/ 7/,
+  );
+});
+
 test("balances Microsoft and AVIC logo sizes", async () => {
   const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
 

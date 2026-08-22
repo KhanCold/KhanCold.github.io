@@ -975,14 +975,69 @@ button {
     position: relative;
     width: 100%;
     height: auto;
-    padding: 30px 24px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto auto auto;
+    column-gap: 18px;
+    row-gap: 4px;
     border-right: 0;
     border-bottom: 1px solid var(--border);
   }
 
   .profile-photo-trigger {
-    width: 168px;
-    height: 168px;
+    width: 112px;
+    height: 112px;
+    margin: 0;
+    grid-column: 1;
+    grid-row: 1 / 4;
+  }
+
+  .sidebar h1 {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  .chinese-name {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .position-lines {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 3;
+    align-self: end;
+  }
+
+  .contact-row,
+  .social-row,
+  .interests {
+    grid-column: 1 / -1;
+  }
+
+  .contact-row {
+    margin: 14px 0 0;
+    grid-row: 4;
+  }
+
+  .social-row {
+    margin: 0;
+    grid-row: 5;
+  }
+
+  .interests {
+    margin: 8px 0 0;
+    grid-row: 6;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 14px;
+  }
+
+  .interests strong {
+    flex-basis: 100%;
   }
 
   .content-column {
@@ -1010,6 +1065,12 @@ button {
 }
 
 @media (max-width: 560px) {
+  .sidebar,
+  .content-column {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
   .contact-row {
     flex-wrap: wrap;
     white-space: normal;
@@ -1025,8 +1086,18 @@ button {
   }
 
   .vita-row {
-    grid-template-columns: 84px minmax(0, 1fr);
-    column-gap: 12px;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 6px;
+  }
+
+  .vita-row > time {
+    padding-top: 0;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .vita-body {
+    grid-template-columns: 52px minmax(0, 1fr);
   }
 
   .page-nav button {
@@ -1065,8 +1136,9 @@ button {
   }
 
   .paper-visual {
-    width: 160px;
-    height: 112px;
+    width: min(280px, 100%);
+    height: auto;
+    aspect-ratio: 10 / 7;
   }
 
   .intro-section {
