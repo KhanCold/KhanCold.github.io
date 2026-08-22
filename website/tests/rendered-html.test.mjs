@@ -74,20 +74,18 @@ test("shows four news entries by default and can reveal the rest", async () => {
   );
   assert.match(
     page,
-    /<strong>Modality Fault Lines<\/strong>\s*<br \/>\s*were accepted to <strong>EMNLP 2026<\/strong>\./,
+    /<strong>Modality Fault Lines<\/strong> were accepted to <strong>EMNLP 2026<\/strong>\.\s*<br \/>/,
   );
-  assert.match(page, /<strong>EMNLP 2026<\/strong>\. Papers coming soon/);
-  assert.match(page, /Papers coming soon for BIRD-History\s+and Modality Fault Lines\./);
+  assert.match(page, /<br \/>\s*Papers coming soon for BIRD-History and Modality Fault Lines\./);
   assert.match(
     page,
     /我们的三篇论文：<strong>SPADER<\/strong>、<strong>BIRD-History<\/strong> 和\{" "\}/,
   );
   assert.match(
     page,
-    /<strong>Modality Fault Lines<\/strong>\s*<br \/>\s*被 <strong>EMNLP 2026<\/strong> 接收。/,
+    /<strong>Modality Fault Lines<\/strong> 被 <strong>EMNLP 2026<\/strong> 接收。\s*<br \/>/,
   );
-  assert.match(page, /<strong>EMNLP 2026<\/strong> 接收。 BIRD-History/);
-  assert.match(page, /BIRD-History 与 Modality Fault Lines\s+的论文即将上线。/);
+  assert.match(page, /<br \/>\s*BIRD-History 与 Modality Fault Lines 的论文即将上线。/);
   assert.match(page, /One of our pull requests was merged into <strong>Hermes<\/strong>/);
   assert.match(page, /我们提交的一个 Pull Request 已被 <strong>Hermes<\/strong> 合并/);
   assert.match(page, /const \[showAllNews, setShowAllNews\] = useState\(false\)/);
@@ -106,12 +104,13 @@ test("lists SPADER as an EMNLP 2026 paper", async () => {
   const spaderStart = page.indexOf(
     "SPADER: Step-wise Peer Advantage with Diversity-Aware Exploration Rewards",
   );
-  const spaderEnd = page.indexOf('title: "Cerebra:', spaderStart);
+  const spaderEnd = page.indexOf("BIRD-History:", spaderStart);
   const spaderSource = page.slice(spaderStart, spaderEnd);
 
   assert.ok(spaderStart >= 0);
   assert.ok(spaderEnd > spaderStart);
   assert.match(spaderSource, /venue: "EMNLP 2026"/);
+  assert.match(spaderSource, /rating: "CORE A\*"/);
 });
 
 test("adds the two EMNLP Findings papers only to full publications in the requested order", async () => {
@@ -139,6 +138,7 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
 
   assert.match(birdSource, /authors: \["Yunfan Zhou", "Qiming Shi", "Yizhou Yang", "Di Weng", "Yingcai Wu"\]/);
   assert.match(birdSource, /venue: "EMNLP 2026 Findings"/);
+  assert.match(birdSource, /rating: "CORE A\*"/);
   assert.match(birdSource, /topics: \["Code LLM", "Benchmark"\]/);
   assert.match(birdSource, /assets\/papers\/bird-history-card\.jpg/);
   assert.doesNotMatch(birdSource, /\n\s+paper:/);
@@ -146,6 +146,7 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
   assert.match(modalitySource, /"Zhaolu Kang"[\s\S]*?"Meixin Wu"[\s\S]*?"Qiming Shi"/);
   assert.match(modalitySource, /"Richeng Xuan"[\s\S]*?"Zhichao Hu"/);
   assert.match(modalitySource, /venue: "EMNLP 2026 Findings"/);
+  assert.match(modalitySource, /rating: "CORE A\*"/);
   assert.match(modalitySource, /topics: \["Multimodal", "Benchmark"\]/);
   assert.match(modalitySource, /assets\/papers\/modality-fault-lines-card\.jpg/);
   assert.doesNotMatch(modalitySource, /\n\s+paper:/);

@@ -444,6 +444,7 @@ const publications: Publication[] = [
     abstractZh:
       "大语言模型正越来越多地作为工具增强型智能体，用于获取参数化知识之外的信息。尽管近期研究提升了长程工具使用推理能力，多数方法仍聚焦于仅有单一正确答案的任务。我们提出 SPADER，一个面向多答案问答中长程工具使用的强化学习框架。SPADER 包含逐步同伴优势机制：一种无需评论器的步骤级信用分配方法，它按决策步骤对齐并行轨迹，并利用同伴回报估计优势；同时引入多样性感知探索奖励，通过提高稀有发现的权重、降低重复结果的权重来促进长尾实体发现。在 QAMPARI、Mintaka、WebQSP 和 QUEST 上的实验表明，相比基于提示的智能体、结果监督强化学习方法以及近期的步骤级监督方法，SPADER 总体上提升了召回率和综合 F1。",
     venue: "EMNLP 2026",
+    rating: "CORE A*",
     tag: "Agentic RL",
     tagZh: "智能体强化学习",
     topics: ["Agentic RL", "Search Agent"],
@@ -462,6 +463,7 @@ const publications: Publication[] = [
     abstractZh:
       "尽管近期基于大语言模型的 Text-to-SQL 系统在标准基准上表现出色，但当用户问题隐式依赖 schema 未涵盖且自然语言问题未明确说明的领域知识（如业务逻辑、数据约定和分析惯例）时，系统仍面临困难。我们提出 BIRD-History：一个覆盖 11 个数据库、包含 1,393 个任务的基准，用于评估 Text-to-SQL 系统利用历史 SQL 脚本为欠指明自然语言问题提供知识依据的能力。每个任务都标注了包含相关知识的历史查询及编码该知识的具体 SQL 子句，从而可系统评估检索效果与知识利用。我们还提出一个插件式检索器，从历史日志中抽取相关知识，无需修改架构即可增强现有少样本 Text-to-SQL 流水线；实验在四个 Text-to-SQL 系统上均取得一致提升。",
     venue: "EMNLP 2026 Findings",
+    rating: "CORE A*",
     tag: "Code LLM",
     tagZh: "代码大模型",
     topics: ["Code LLM", "Benchmark"],
@@ -486,6 +488,7 @@ const publications: Publication[] = [
     abstractZh:
       "全模态大语言模型通常在文本、视觉、音频通道均完整同步的干净输入上评测，但干净准确率无法判断成功源于稳定的跨模态结构，还是完整输入中恰好足够的局部线索。我们将这一不确定性视为诊断问题，并定义 modality fault line：当某个模态仍然存在且对人类可解释、但其内部证据结构受到扰动时，模型行为开始不稳定的边界。为探测这些断层，我们提出 SCEVAL（Structure-Corruption Evaluation），在保持问题、答案空间和模态通道不变的前提下，分别及联合地对文本、视觉和音频施加受控结构腐蚀。SCEVAL 基于来自 Social-IQ、OmniBench 和 VALOR 的 273 个经人工验证的三模态样本，按每个随机条件最多三个变体的平均准确率评估闭源与开源全模态系统，并记录最差变体差距以诊断随机种子脆弱性。结果表明：结构腐蚀会降低干净准确率，文本-视觉损伤形成最稳定的共享断层，多模态退化呈非加性且依赖模型。",
     venue: "EMNLP 2026 Findings",
+    rating: "CORE A*",
     tag: "Multimodal",
     tagZh: "多模态",
     topics: ["Multimodal", "Benchmark"],
@@ -1025,18 +1028,16 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
               {language === "zh" ? (
                 <>
                   我们的三篇论文：<strong>SPADER</strong>、<strong>BIRD-History</strong> 和{" "}
-                  <strong>Modality Fault Lines</strong>
+                  <strong>Modality Fault Lines</strong> 被 <strong>EMNLP 2026</strong> 接收。
                   <br />
-                  被 <strong>EMNLP 2026</strong> 接收。 BIRD-History 与 Modality Fault Lines
-                  的论文即将上线。
+                  BIRD-History 与 Modality Fault Lines 的论文即将上线。
                 </>
               ) : (
                 <>
                   Three papers: <strong>SPADER</strong>, <strong>BIRD-History</strong>, and{" "}
-                  <strong>Modality Fault Lines</strong>
+                  <strong>Modality Fault Lines</strong> were accepted to <strong>EMNLP 2026</strong>.
                   <br />
-                  were accepted to <strong>EMNLP 2026</strong>. Papers coming soon for BIRD-History
-                  and Modality Fault Lines.
+                  Papers coming soon for BIRD-History and Modality Fault Lines.
                 </>
               )}
             </p>
