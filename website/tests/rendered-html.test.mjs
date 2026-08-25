@@ -31,7 +31,7 @@ test("exports the homepage as static HTML", async () => {
   assert.match(html, /Long-Horizon/);
   assert.match(html, />Topics<\/span>/);
   assert.match(html, />Benchmark<\/span>/);
-  assert.match(html, />Self-Improving<\/span>/);
+  assert.match(html, />Self-Evolving<\/span>/);
   assert.match(html, />Search Agent<\/span>/);
   assert.match(html, />Code LLM<\/span>/);
   assert.match(html, />HCI<\/span>/);
@@ -175,12 +175,12 @@ test("includes the August papers only in the full publication data", async () =>
   assert.match(page, /arxiv\.org\/abs\/2608\.02143/);
   assert.match(page, /tag: "OPD"/);
   assert.match(page, /tagZh: "自蒸馏"/);
-  assert.match(page, /topics: \["OPD", "Self-Improving"\]/);
+  assert.match(page, /topics: \["OPD", "Self-Evolving"\]/);
   assert.match(bcsdSource, /"Linbo Jin†"/);
   assert.match(bcsdSource, /assets\/papers\/bcsd-card\.jpg/);
   assert.match(page, /"Di Weng†"/);
   assert.match(page, /"Linbo Jin†"/);
-  assert.match(page, /topics: \["Autoresearch", "Self-Improving"\]/);
+  assert.match(page, /topics: \["Autoresearch", "Self-Evolving"\]/);
   assert.doesNotMatch(
     page.slice(page.indexOf("function About"), page.indexOf("return (", page.indexOf("function About"))),
     /Bidirectional Context Self-Distillation|POEM|Beyond Solution-Centric Search/,

@@ -313,7 +313,7 @@ const publications: Publication[] = [
     venue: "arXiv 2026",
     tag: "OPD",
     tagZh: "自蒸馏",
-    topics: ["OPD", "Self-Improving"],
+    topics: ["OPD", "Self-Evolving"],
     image: publicAsset("/assets/papers/bcsd-card.jpg?v=260809555"),
     pdf: "https://arxiv.org/pdf/2608.09555",
     paper: "https://arxiv.org/abs/2608.09555",
@@ -364,7 +364,7 @@ const publications: Publication[] = [
     venue: "arXiv 2026",
     tag: "Autoresearch",
     tagZh: "自主科研",
-    topics: ["Autoresearch", "Self-Improving"],
+    topics: ["Autoresearch", "Self-Evolving"],
     image: publicAsset("/assets/papers/beyond-solution-centric-search-card.jpg?v=fd3e972c"),
     pdf: "https://arxiv.org/pdf/2608.02143",
     paper: "https://arxiv.org/abs/2608.02143",
@@ -421,9 +421,9 @@ const publications: Publication[] = [
     abstractZh:
       "基于技能的提示已成为提升大语言模型智能体能力的实用机制，但现有技能获取方法往往将技能视为经验总结、记忆条目，或对成功示范的直接概括。我们提出 SKILL-KD，一种对比式技能蒸馏框架，将技能作为不同能力智能体之间显式的蒸馏媒介。给定学生智能体的一次失败及教师智能体在同一任务上的轨迹，SKILL-KD 将二者之间可执行的差异蒸馏为文本技能补丁，通过重新运行学生智能体评估补丁，并在学生仍然失败时迭代优化。漂移感知技能整合机制维护与轨迹关联的编辑历史，并控制新补丁如何更新技能库。在五个智能体基准和两种学生模型设置上，SKILL-KD 均能稳定提升冻结学生智能体，优于固定模型适配基线。",
     venue: "arXiv 2026",
-    tag: "Self-Improving",
+    tag: "Self-Evolving",
     tagZh: "自进化",
-    topics: ["Self-Improving", "Skills"],
+    topics: ["Self-Evolving", "Skills"],
     image: publicAsset("/assets/papers/skill-kd-card.jpg?v=2be0f667"),
     pdf: "https://arxiv.org/pdf/2607.28048",
     paper: "https://arxiv.org/abs/2607.28048",
@@ -1011,7 +1011,7 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
             </p>
             <p>
               Recently, I have focused on <strong>agentic reinforcement learning</strong>,{" "}
-              <strong>self-improving systems</strong>, and <strong>human–AI collaboration</strong>,
+              <strong>Self-Evolving systems</strong>, and <strong>human–AI collaboration</strong>,
               with particular interest in fine-grained credit assignment, long-term coherence,
               and interactive systems that make model behavior easier to inspect and refine.
             </p>
@@ -1079,7 +1079,7 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
             <p>
               {language === "zh"
                 ? "加入阿里巴巴 1688 团队，开展自进化智能体与长程强化学习研究。"
-                : "Joined Alibaba's 1688 team to work on self-improving agents and long-horizon RL."}
+                : "Joined Alibaba's 1688 team to work on Self-Evolving agents and long-horizon RL."}
             </p>
           </div>
           <div className="dated-row" hidden={!showAllNews}>
@@ -1230,10 +1230,10 @@ function Vita({ language }: { language: Language }) {
           <p>
             {language === "zh"
               ? "自进化智能体基础设施、长程电商环境，以及面向自主店铺运营的强化学习。"
-              : "Self-improving agent infrastructure, long-horizon e-commerce environments, and reinforcement learning for autonomous store operations."}
+              : "Self-Evolving agent infrastructure, long-horizon e-commerce environments, and reinforcement learning for autonomous store operations."}
           </p>
           <p className="keywords">
-            {language === "zh" ? "自进化智能体 · 长程连贯性" : "Self-improving agents · Long Term Coherence"}
+            {language === "zh" ? "自进化智能体 · 长程连贯性" : "Self-Evolving agents · Long Term Coherence"}
           </p>
         </VitaRow>
         <VitaRow
