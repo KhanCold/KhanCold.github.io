@@ -33,7 +33,7 @@ test("exports the homepage as static HTML", async () => {
   assert.match(html, />Benchmark<\/span>/);
   assert.match(html, />Self-Evolving<\/span>/);
   assert.match(html, />Search Agent<\/span>/);
-  assert.match(html, />Code LLM<\/span>/);
+  assert.match(html, />Coding Agent<\/span>/);
   assert.match(html, />HCI<\/span>/);
   assert.match(html, />see all<\/button>/);
   assert.doesNotMatch(html, />achievements<\/button>/);
@@ -139,7 +139,7 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
   assert.match(birdSource, /authors: \["Yunfan Zhou", "Qiming Shi", "Yizhou Yang", "Di Weng", "Yingcai Wu"\]/);
   assert.match(birdSource, /venue: "EMNLP 2026 Findings"/);
   assert.match(birdSource, /rating: "CORE A\*"/);
-  assert.match(birdSource, /topics: \["Code LLM", "Benchmark"\]/);
+  assert.match(birdSource, /topics: \["Coding Agent", "Benchmark"\]/);
   assert.match(birdSource, /assets\/papers\/bird-history-card\.jpg/);
   assert.doesNotMatch(birdSource, /\n\s+paper:/);
 
