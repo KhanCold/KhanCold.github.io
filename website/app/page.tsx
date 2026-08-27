@@ -1096,8 +1096,8 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
             <time>2026.03</time>
             <p>
               {language === "zh"
-                ? "完成微软亚洲研究院科研实习，研究广度搜索智能体。"
-                : "Completed a research internship at MSRA on the Wide Search Agent."}
+                ? "完成微软科研实习，研究广度搜索智能体。"
+                : "Completed a research internship at Microsoft on the Wide Search Agent."}
             </p>
           </div>
         </div>
@@ -1239,9 +1239,9 @@ function Vita({ language }: { language: Language }) {
         <VitaRow
           when="2025.12 — 2026.03"
           title={language === "zh" ? "科研实习生" : "Research Intern"}
-          meta={language === "zh" ? "微软亚洲研究院 · STCA · 北京" : "MSRA · STCA · Beijing"}
+          meta={language === "zh" ? "微软 · STCA · 北京" : "Microsoft · STCA · Beijing"}
           logo={publicAsset("/assets/logos/microsoft.svg")}
-          logoAlt={language === "zh" ? "微软亚洲研究院标志" : "MSRA logo"}
+          logoAlt={language === "zh" ? "微软标志" : "Microsoft logo"}
         >
           <p>
             {language === "zh"
