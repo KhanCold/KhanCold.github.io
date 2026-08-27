@@ -1239,7 +1239,7 @@ function Vita({ language }: { language: Language }) {
         <VitaRow
           when="2025.12 — 2026.03"
           title={language === "zh" ? "科研实习生" : "Research Intern"}
-          meta={language === "zh" ? "微软亚洲研究院 · DKI · 北京" : "MSRA · DKI · Beijing"}
+          meta={language === "zh" ? "微软亚洲研究院 · STCA · 北京" : "MSRA · STCA · Beijing"}
           logo={publicAsset("/assets/logos/microsoft.svg")}
           logoAlt={language === "zh" ? "微软亚洲研究院标志" : "MSRA logo"}
         >
