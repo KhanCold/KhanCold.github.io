@@ -18,11 +18,11 @@ test("exports the homepage as static HTML", async () => {
   assert.match(html, /class="project-icon"/);
   assert.match(html, />project<\/a>/);
   const merchantBenchStart = html.indexOf("MerchantBench: Benchmarking LLM Agents");
-  const skillKdStart = html.indexOf("SKILL-KD", merchantBenchStart);
-  const spaderStart = html.indexOf("SPADER: Step-wise Peer Advantage", skillKdStart);
-  const merchantBenchHtml = html.slice(merchantBenchStart, skillKdStart);
-  assert.ok(merchantBenchStart < skillKdStart);
-  assert.ok(skillKdStart < spaderStart);
+  const spaderStart = html.indexOf("SPADER: Step-wise Peer Advantage", merchantBenchStart);
+  const skillKdStart = html.indexOf("SKILL-KD", spaderStart);
+  const merchantBenchHtml = html.slice(merchantBenchStart, spaderStart);
+  assert.ok(merchantBenchStart < spaderStart);
+  assert.ok(spaderStart < skillKdStart);
   assert.ok(merchantBenchHtml.indexOf(">project</a>") < merchantBenchHtml.indexOf(">abstract</button>"));
   assert.match(html, /class="hf-news-highlight">🏆 #1 Paper of the Day<\/strong>/);
   assert.match(html, /class="hf-daily-link"/);

@@ -929,15 +929,16 @@ function Achievements({ language }: { language: Language }) {
 
 function About({ language, onSeeAll }: { language: Language; onSeeAll: () => void }) {
   const [showAllNews, setShowAllNews] = useState(false);
-  const featured = publications.filter((publication) =>
-    [
-      "MerchantBench",
-      "SKILL-KD",
-      "SPADER",
-      "Cerebra",
-      "Xavier",
-    ].some((name) => publication.title.startsWith(name)),
-  );
+  const featured = [
+    "MerchantBench",
+    "SPADER",
+    "SKILL-KD",
+    "Cerebra",
+    "Xavier",
+  ].flatMap((name) => {
+    const publication = publications.find((candidate) => candidate.title.startsWith(name));
+    return publication ? [publication] : [];
+  });
 
   return (
     <div className="page" lang={language === "zh" ? "zh-CN" : "en"}>
