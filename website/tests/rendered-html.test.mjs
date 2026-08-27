@@ -104,13 +104,13 @@ test("uses MSRA and 微软亚洲研究院 for the research internship", async ()
 
   assert.match(page, /Completed a research internship at MSRA on the Wide Search Agent\./);
   assert.match(page, /完成微软亚洲研究院科研实习，研究广度搜索智能体。/);
-  assert.match(page, /"MSRA · STCA · Beijing"/);
-  assert.match(page, /"微软亚洲研究院 · STCA · 北京"/);
+  assert.match(page, /"MSRA · DKI · Beijing"/);
+  assert.match(page, /"微软亚洲研究院 · DKI · 北京"/);
   assert.match(page, /"MSRA logo"/);
   assert.match(page, /"微软亚洲研究院标志"/);
   assert.doesNotMatch(
     page,
-    /Completed a research internship at Microsoft|完成微软科研实习|Microsoft · STCA|微软 · STCA|Microsoft logo|微软标志/,
+    /Completed a research internship at Microsoft|完成微软科研实习| · STCA · |Microsoft logo|微软标志/,
   );
 });
 
