@@ -465,7 +465,7 @@ const publications: Publication[] = [
     venue: "EMNLP 2026 Findings",
     rating: "CORE A*",
     tag: "Coding Agent",
-    tagZh: "代码大模型",
+    tagZh: "Coding Agent",
     topics: ["Coding Agent", "Benchmark"],
     image: publicAsset("/assets/papers/bird-history-card.jpg"),
   },
@@ -514,7 +514,7 @@ const publications: Publication[] = [
     venue: "CHI 2026",
     rating: "CCF-A",
     tag: "Coding Agent",
-    tagZh: "代码大模型",
+    tagZh: "Coding Agent",
     topics: ["Coding Agent", "HCI"],
     image: publicAsset("/assets/papers/cerebra-card.jpg?v=6e34d5c2"),
     pdf: publicAsset("/papers/cerebra.pdf"),
@@ -542,7 +542,7 @@ const publications: Publication[] = [
     venue: "CHI 2025",
     rating: "CCF-A",
     tag: "Coding Agent",
-    tagZh: "代码大模型",
+    tagZh: "Coding Agent",
     topics: ["Coding Agent", "HCI"],
     image: publicAsset("/assets/papers/xavier-card.jpg?v=9f43a5b1"),
     pdf: publicAsset("/papers/xavier.pdf"),
@@ -1259,11 +1259,11 @@ function Vita({ language }: { language: Language }) {
         >
           <p>
             {language === "zh"
-              ? "面向代码大模型的运行时数据感知，以及自然语言转 SQL 系统中的隐性业务知识对齐。"
-              : "Runtime data awareness for CodeLLMs and alignment of implicit business knowledge for text-to-SQL systems."}
+              ? "面向 Coding Agent 的运行时数据感知，以及自然语言转 SQL 系统中的隐性业务知识对齐。"
+              : "Runtime data awareness for Coding Agent systems and alignment of implicit business knowledge for text-to-SQL systems."}
           </p>
           <p className="keywords">
-            {language === "zh" ? "代码大模型 · 自然语言转 SQL · 数据上下文" : "CodeLLM · Text-to-SQL · Data context"}
+            {language === "zh" ? "Coding Agent · 自然语言转 SQL · 数据上下文" : "Coding Agent · Text-to-SQL · Data context"}
           </p>
         </VitaRow>
       </section>

@@ -65,6 +65,16 @@ test("includes service entries below awards", async () => {
   assert.match(page, /粉丝数 2,000\+ · 浏览量 100 万\+/);
 });
 
+test("uses Coding Agent consistently instead of Code LLM", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+
+  assert.doesNotMatch(page, /Code\s*LLMs?|代码大模型/i);
+  assert.match(page, /Runtime data awareness for Coding Agent systems/);
+  assert.match(page, /面向 Coding Agent 的运行时数据感知/);
+  assert.match(page, /"Coding Agent · Text-to-SQL · Data context"/);
+  assert.match(page, /"Coding Agent · 自然语言转 SQL · 数据上下文"/);
+});
+
 test("shows four news entries by default and can reveal the rest", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
 
