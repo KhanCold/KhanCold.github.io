@@ -99,6 +99,21 @@ test("shows four news entries by default and can reveal the rest", async () => {
   assert.match(page, /"Show less"/);
 });
 
+test("uses MSRA and 微软亚洲研究院 for the research internship", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+
+  assert.match(page, /Completed a research internship at MSRA on the Wide Search Agent\./);
+  assert.match(page, /完成微软亚洲研究院科研实习，研究广度搜索智能体。/);
+  assert.match(page, /"MSRA · STCA · Beijing"/);
+  assert.match(page, /"微软亚洲研究院 · STCA · 北京"/);
+  assert.match(page, /"MSRA logo"/);
+  assert.match(page, /"微软亚洲研究院标志"/);
+  assert.doesNotMatch(
+    page,
+    /Completed a research internship at Microsoft|完成微软科研实习|Microsoft · STCA|微软 · STCA|Microsoft logo|微软标志/,
+  );
+});
+
 test("lists SPADER as an EMNLP 2026 paper", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
   const spaderStart = page.indexOf(
@@ -249,7 +264,7 @@ test("uses compact, readable layouts on phone-sized screens", async () => {
   );
 });
 
-test("balances Microsoft and AVIC logo sizes", async () => {
+test("balances MSRA and AVIC logo sizes", async () => {
   const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
 
   assert.match(
