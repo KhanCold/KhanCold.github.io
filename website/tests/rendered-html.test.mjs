@@ -10,6 +10,9 @@ test("exports the homepage as static HTML", async () => {
 
   assert.match(html, /<title>Qiming Shi · 史启明<\/title>/);
   assert.match(html, /Agentic RL/);
+  assert.match(html, /Research Interests[\s\S]*?AI Business/);
+  assert.match(html, /recursive self-improvement \(RSI\)/);
+  assert.doesNotMatch(html, /data intelligence|Recently, I have focused on/i);
   assert.match(html, /Wide Search Agent/);
   assert.match(html, /MerchantBench: Benchmarking LLM Agents/);
   assert.match(html, /arxiv\.org\/abs\/2607\.28956/);
@@ -52,6 +55,16 @@ test("exports the homepage as static HTML", async () => {
   );
 });
 
+test("keeps the Chinese About copy aligned with the English research focus", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const about = page.slice(page.indexOf("function About("), page.indexOf('language === "zh" ? "动态" : "News"'));
+
+  assert.match(about, /长程语言智能体/);
+  assert.match(about, /递归自我改进（RSI）/);
+  assert.match(about, /重点关注 <strong>AI Business<\/strong>/);
+  assert.doesNotMatch(about, /数据智能|近期，我主要关注/);
+});
+
 test("includes service entries below awards", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
   const awardsIndex = page.indexOf('"Awards"');
@@ -65,14 +78,27 @@ test("includes service entries below awards", async () => {
   assert.match(page, /粉丝数 2,000\+ · 浏览量 100 万\+/);
 });
 
+test("shows the current AI Business internship above the completed Alibaba internship", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const vitaStart = page.indexOf("function Vita(");
+  const experienceStart = page.indexOf('"Experience"', vitaStart);
+  const awardsStart = page.indexOf('"Awards"', experienceStart);
+  const experience = page.slice(experienceStart, awardsStart);
+
+  assert.match(experience, /2026\.09 — 至今/);
+  assert.match(experience, /StepFun · Foundation Model Post-Training · Shanghai/);
+  assert.match(experience, /参与 AI Business 能力建设/);
+  assert.match(experience, /autonomous vending and supermarket operations/);
+  assert.match(experience, /Env Scaling · Benchmark · Agentic RL/);
+  assert.match(experience, /when="2026\.05 — 2026\.09"/);
+  assert.ok(experience.indexOf("阶跃星辰") < experience.indexOf("阿里巴巴集团"));
+  assert.doesNotMatch(experience, /2026\.05 — Present|2026\.05 — 至今/);
+});
+
 test("uses Coding Agent consistently instead of Code LLM", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
 
   assert.doesNotMatch(page, /Code\s*LLMs?|代码大模型/i);
-  assert.match(page, /Runtime data awareness for Coding Agent systems/);
-  assert.match(page, /面向 Coding Agent 的运行时数据感知/);
-  assert.match(page, /"Coding Agent · Text-to-SQL · Data context"/);
-  assert.match(page, /"Coding Agent · 自然语言转 SQL · 数据上下文"/);
 });
 
 test("shows four news entries by default and can reveal the rest", async () => {
@@ -84,18 +110,18 @@ test("shows four news entries by default and can reveal the rest", async () => {
   );
   assert.match(
     page,
-    /<strong>Modality Fault Lines<\/strong> were accepted to <strong>EMNLP 2026<\/strong>\.\s*<br \/>/,
+    /<strong>Modality Fault Lines<\/strong> were accepted to <strong>EMNLP 2026<\/strong>\./,
   );
-  assert.match(page, /<br \/>\s*Papers coming soon for BIRD-History and Modality Fault Lines\./);
+  assert.doesNotMatch(page, /Papers coming soon for BIRD-History and Modality Fault Lines/);
   assert.match(
     page,
     /我们的三篇论文：<strong>SPADER<\/strong>、<strong>BIRD-History<\/strong> 和\{" "\}/,
   );
   assert.match(
     page,
-    /<strong>Modality Fault Lines<\/strong> 被 <strong>EMNLP 2026<\/strong> 接收。\s*<br \/>/,
+    /<strong>Modality Fault Lines<\/strong> 被 <strong>EMNLP 2026<\/strong> 接收。/,
   );
-  assert.match(page, /<br \/>\s*BIRD-History 与 Modality Fault Lines 的论文即将上线。/);
+  assert.doesNotMatch(page, /BIRD-History 与 Modality Fault Lines 的论文即将上线/);
   assert.match(page, /One of our pull requests was merged into <strong>Hermes<\/strong>/);
   assert.match(page, /我们提交的一个 Pull Request 已被 <strong>Hermes<\/strong> 合并/);
   assert.match(page, /const \[showAllNews, setShowAllNews\] = useState\(false\)/);
@@ -151,7 +177,8 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
   assert.match(birdSource, /rating: "CORE A\*"/);
   assert.match(birdSource, /topics: \["Coding Agent", "Benchmark"\]/);
   assert.match(birdSource, /assets\/papers\/bird-history-card\.jpg/);
-  assert.doesNotMatch(birdSource, /\n\s+paper:/);
+  assert.match(birdSource, /paper: "https:\/\/arxiv\.org\/abs\/2608\.29345"/);
+  assert.match(birdSource, /code: "https:\/\/github\.com\/zjuidg\/BIRD-History"/);
 
   assert.match(modalitySource, /"Zhaolu Kang"[\s\S]*?"Meixin Wu"[\s\S]*?"Qiming Shi"/);
   assert.match(modalitySource, /"Richeng Xuan"[\s\S]*?"Zhichao Hu"/);
@@ -159,7 +186,9 @@ test("adds the two EMNLP Findings papers only to full publications in the reques
   assert.match(modalitySource, /rating: "CORE A\*"/);
   assert.match(modalitySource, /topics: \["Multimodal", "Benchmark"\]/);
   assert.match(modalitySource, /assets\/papers\/modality-fault-lines-card\.jpg/);
-  assert.doesNotMatch(modalitySource, /\n\s+paper:/);
+  assert.match(modalitySource, /paper: "https:\/\/arxiv\.org\/abs\/2608\.29278"/);
+  assert.match(modalitySource, /project: "https:\/\/github\.com\/Zhaolu-K\/ModalityFaultLines-SCEval"/);
+  assert.doesNotMatch(modalitySource, /\n\s+code:/);
 });
 
 test("includes the August papers only in the full publication data", async () => {
@@ -201,6 +230,8 @@ test("includes assets required by GitHub Pages", async () => {
   await Promise.all([
     access(new URL("_next/", outputRoot)),
     access(new URL("assets/profile-optimized.jpg", outputRoot)),
+    access(new URL("assets/logos/alibaba-group-mark.png", outputRoot)),
+    access(new URL("assets/logos/stepfun.svg", outputRoot)),
     access(new URL("assets/papers/merchantbench-card.jpg", outputRoot)),
     access(new URL("assets/papers/bcsd-card.jpg", outputRoot)),
     access(new URL("assets/papers/poem-card.jpg", outputRoot)),
@@ -227,6 +258,13 @@ test("keeps the Zhejiang University logo clear of mobile education dates", async
     css,
     /\.institution-logo img\[src\$="\/zju\.png"\][\s\S]*?clip-path:\s*inset\(7px 16px 8px\)/,
   );
+});
+
+test("left-aligns Vita dates and balances the Alibaba logo with the other internship icons", async () => {
+  const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
+
+  assert.match(css, /\.vita-row > time\s*\{[^}]*text-align:\s*left;/);
+  assert.match(css, /\.institution-logo img\[src\$="\/alibaba-group-mark\.png"\]\s*\{[^}]*width:\s*40px;[^}]*height:\s*40px;/);
 });
 
 test("uses compact, readable layouts on phone-sized screens", async () => {
@@ -259,34 +297,24 @@ test("uses compact, readable layouts on phone-sized screens", async () => {
   );
 });
 
-test("balances Microsoft and AVIC logo sizes", async () => {
+test("keeps the Microsoft logo compact", async () => {
   const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
 
   assert.match(
     css,
     /img\[src\$="\/microsoft\.svg"\][\s\S]*?width:\s*34px;[\s\S]*?height:\s*34px;/,
   );
-  assert.match(
-    css,
-    /img\[src\$="\/avic\.svg"\][\s\S]*?width:\s*38px;[\s\S]*?height:\s*38px;/,
-  );
+
 });
 
-test("dates the OpenClaw merge achievement to June 2026", async () => {
+test("removes the Xifei internship and achievements easter egg", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
+  const html = await readFile(new URL("index.html", outputRoot), "utf8");
 
-  assert.match(
-    page,
-    /id: "openclaw-merge"[\s\S]*?date: "2026\.06"[\s\S]*?dateTime: "2026-06"/,
-  );
-});
-
-test("keeps achievements behind the five-click profile-photo easter egg", async () => {
-  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
-
-  assert.match(page, /const nextCount = withinClickWindow \?[^;]+;/);
-  assert.match(page, /if \(nextCount < 5\) return;/);
-  assert.match(page, /setAchievementsUnlocked\(true\)/);
-  assert.doesNotMatch(page, /achievementsUnlockKey|achievements-unlocked/);
-  assert.match(page, /tab\.id !== "achievements" \|\| achievementsUnlocked/);
+  assert.doesNotMatch(page, /Xifei|西飞|AVIC|avic\.svg/);
+  assert.doesNotMatch(page, /achievement|PixelIcon|pixelArt|onProfileClick|profileClick/i);
+  assert.doesNotMatch(css, /achievement|pixel-icon|profile-photo-trigger/i);
+  assert.doesNotMatch(html, /profile-photo-trigger|Papers coming soon/);
+  assert.match(html, /<div class="profile-photo-frame"><img/);
 });

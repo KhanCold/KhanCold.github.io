@@ -79,7 +79,7 @@ button {
   border-right: 1px solid var(--border);
 }
 
-.profile-photo-trigger {
+.profile-photo-frame {
   width: 208px;
   height: 208px;
   margin: 0 0 22px;
@@ -90,11 +90,6 @@ button {
   border: 0;
   border-radius: 4px;
   cursor: default;
-}
-
-.profile-photo-trigger:focus-visible {
-  outline: 1px solid var(--text);
-  outline-offset: 3px;
 }
 
 .profile-photo {
@@ -317,7 +312,7 @@ button {
 .vita-row > time {
   padding-top: 1px;
   color: var(--secondary);
-  text-align: right;
+  text-align: left;
   font-size: 11px;
   letter-spacing: 0.035em;
   text-transform: uppercase;
@@ -396,11 +391,6 @@ button {
   clip-path: inset(7px 16px 8px);
 }
 
-.institution-logo img[src$="/alibaba.png"] {
-  width: 56px;
-  max-width: none;
-}
-
 .institution-logo img[src$="/microsoft.svg"] {
   width: 34px;
   height: 34px;
@@ -408,10 +398,16 @@ button {
   max-height: none;
 }
 
-.institution-logo img[src$="/avic.svg"] {
-  width: 38px;
-  height: 38px;
+.institution-logo img[src$="/stepfun.svg"] {
+  width: 36px;
+  height: 36px;
 }
+
+.institution-logo img[src$="/alibaba-group-mark.png"] {
+  width: 40px;
+  height: 40px;
+}
+
 
 .vita-heading {
   display: flex;
@@ -431,181 +427,6 @@ button {
 .vita-row .keywords {
   color: var(--secondary);
   font-size: 11px;
-}
-
-.achievement-showcase,
-.achievement-history {
-  max-width: 820px;
-}
-
-.achievement-shelf {
-  width: 100%;
-  max-width: 226px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 36px);
-  gap: 2px;
-}
-
-.achievement-badge {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  outline: none;
-  cursor: help;
-}
-
-.achievement-badge:focus-visible {
-  outline: 1px solid var(--text);
-  outline-offset: 3px;
-}
-
-.achievement-tooltip {
-  position: absolute;
-  z-index: 10;
-  top: calc(100% + 7px);
-  left: 50%;
-  padding: 3px 7px;
-  color: var(--background);
-  background: var(--text);
-  border-radius: 2px;
-  font-size: 10px;
-  line-height: 1.4;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -3px);
-  transition:
-    opacity 120ms ease,
-    transform 120ms ease;
-  white-space: nowrap;
-}
-
-.achievement-tooltip::before {
-  position: absolute;
-  top: -3px;
-  left: calc(50% - 3px);
-  width: 6px;
-  height: 6px;
-  content: "";
-  background: var(--text);
-  transform: rotate(45deg);
-}
-
-.achievement-badge:hover .achievement-tooltip,
-.achievement-badge:focus .achievement-tooltip,
-.achievement-badge:focus-visible .achievement-tooltip {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-.pixel-icon {
-  width: 36px;
-  height: 36px;
-  padding: 2px;
-  display: inline-flex;
-  flex: none;
-  background: #fafaf9;
-  border: 1px solid #e4e4e1;
-  border-radius: 1px;
-  box-shadow: none;
-}
-
-.pixel-icon.compact {
-  width: 32px;
-  height: 32px;
-  padding: 2px;
-}
-
-.pixel-icon.rare {
-  background: #fcfaf4;
-  border-color: #d7c59b;
-  box-shadow: 0 0 4px rgba(190, 147, 55, 0.12);
-}
-
-.pixel-icon-grid {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  overflow: hidden;
-  image-rendering: pixelated;
-}
-
-.pixel {
-  display: block;
-  min-width: 0;
-  min-height: 0;
-}
-
-.achievement-timeline {
-  max-width: 820px;
-}
-
-.achievement-row {
-  display: grid;
-  grid-template-columns: 128px minmax(0, 1fr);
-  column-gap: 14px;
-  align-items: start;
-}
-
-.achievement-row:not(:last-child) {
-  padding-bottom: 28px;
-}
-
-.achievement-row > time {
-  padding-top: 5px;
-  color: var(--secondary);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.025em;
-  text-align: right;
-}
-
-.achievement-event {
-  position: relative;
-  isolation: isolate;
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
-  gap: 10px;
-  align-items: start;
-}
-
-.achievement-row:not(:last-child) .achievement-event::after {
-  position: absolute;
-  z-index: -1;
-  top: 34px;
-  bottom: -28px;
-  left: 16px;
-  width: 1px;
-  content: "";
-  background: #d8d8d3;
-}
-
-.achievement-copy {
-  padding-top: 3px;
-}
-
-.achievement-copy h3 {
-  margin: 0 0 2px;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.45;
-}
-
-.achievement-detail {
-  margin: 0;
-  color: #6d6c68;
-}
-
-.achievement-quote {
-  margin: 0 0 5px;
-  color: #8b8983;
-  font-family: ui-serif, Georgia, "Songti SC", "Noto Serif CJK SC", serif;
-  font-size: 11px;
-  line-height: 1.55;
-  letter-spacing: 0;
 }
 
 .paper-list {
@@ -985,7 +806,7 @@ button {
     border-bottom: 1px solid var(--border);
   }
 
-  .profile-photo-trigger {
+  .profile-photo-frame {
     width: 112px;
     height: 112px;
     margin: 0;
@@ -1103,31 +924,6 @@ button {
   .page-nav button {
     padding-right: 7px;
     padding-left: 7px;
-  }
-
-  .achievement-row {
-    grid-template-columns: 84px minmax(0, 1fr);
-    column-gap: 12px;
-  }
-
-  .achievement-row > time {
-    padding-top: 5px;
-    font-size: 9px;
-  }
-
-  .achievement-event {
-    grid-template-columns: 38px minmax(0, 1fr);
-    gap: 8px;
-  }
-
-  .pixel-icon.compact {
-    width: 32px;
-    height: 32px;
-  }
-
-  .achievement-row:not(:last-child) .achievement-event::after {
-    top: 34px;
-    left: 16px;
   }
 
   .paper-entry {

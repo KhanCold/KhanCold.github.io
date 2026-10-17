@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
-type Tab = "about" | "vita" | "publications" | "achievements";
+type Tab = "about" | "vita" | "publications";
 type Language = "en" | "zh";
 
 const siteBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const publicAsset = (path: string) => `${siteBasePath}${path}`;
-const profileClickWindow = 1200;
 const merchantBenchProjectUrl =
   "https://air.1688.com/kapp/next1688/merchantbench/?spm=defwork.home.0.0.7f8c530dSdRT9v";
 
@@ -35,210 +34,7 @@ const tabs: { id: Tab; label: Record<Language, string> }[] = [
   { id: "about", label: { en: "about", zh: "关于" } },
   { id: "vita", label: { en: "vita", zh: "履历" } },
   { id: "publications", label: { en: "publications", zh: "论文" } },
-  { id: "achievements", label: { en: "achievements", zh: "成就" } },
 ];
-
-type AchievementIconName = "birth" | "followers" | "views" | "merge" | "rank" | "silver";
-
-type Achievement = {
-  id: string;
-  icon: AchievementIconName;
-  title: Record<Language, string>;
-  detail: Record<Language, string>;
-  quote: Record<Language, string>;
-  date: string;
-  dateTime: string;
-  rare?: boolean;
-};
-
-const achievements: Achievement[] = [
-  {
-    id: "birth",
-    icon: "birth",
-    title: { en: "The Beginning", zh: "人生起点" },
-    detail: {
-      en: "Started the long game called life on September 27, 2001.",
-      zh: "于 2001 年 9 月 27 日开始人生这场长期游戏。",
-    },
-    quote: {
-      en: "“A journey of a thousand miles begins beneath one’s feet.” — Tao Te Ching",
-      zh: "“千里之行，始于足下。”——《道德经》",
-    },
-    date: "2001.09",
-    dateTime: "2001-09-27",
-  },
-  {
-    id: "first-silver",
-    icon: "silver",
-    title: { en: "First Silver", zh: "第一枚银牌" },
-    detail: {
-      en: "Won an ACM/CCPC programming contest silver medal for the first time.",
-      zh: "首次获得 ACM/CCPC 程序设计竞赛银牌。",
-    },
-    quote: {
-      en: "“After countless blows, it still stands firm against every wind.” — Zheng Xie",
-      zh: "“千磨万击还坚劲，任尔东西南北风。”——郑燮",
-    },
-    date: "2021.11",
-    dateTime: "2021-11",
-  },
-  {
-    id: "third-seat",
-    icon: "rank",
-    title: { en: "Top Three", zh: "位列前三" },
-    detail: {
-      en: "Ranked 3rd among 608 undergraduates, approximately top 0.5%.",
-      zh: "本科成绩排名 3 / 608，约前 0.5%。",
-    },
-    quote: {
-      en: "“I shall ascend the summit and see all mountains beneath me.” — Du Fu",
-      zh: "“会当凌绝顶，一览众山小。”——杜甫",
-    },
-    date: "2024.06",
-    dateTime: "2024-06",
-    rare: true,
-  },
-  {
-    id: "followers-2000",
-    icon: "followers",
-    title: { en: "2,000 Followers", zh: "两千关注" },
-    detail: {
-      en: "Reached 2,000 followers on CSDN.",
-      zh: "CSDN 博客粉丝数突破 2,000。",
-    },
-    quote: {
-      en: "“Is it not a joy to have friends come from afar?” — The Analects",
-      zh: "“有朋自远方来，不亦乐乎。”——《论语》",
-    },
-    date: "2025.06",
-    dateTime: "2025-06",
-  },
-  {
-    id: "openclaw-merge",
-    icon: "merge",
-    title: { en: "Merged Upstream", zh: "合入上游" },
-    detail: {
-      en: "An OpenClaw pull request was merged into the project.",
-      zh: "提交的 OpenClaw Pull Request 被项目正式合并。",
-    },
-    quote: {
-      en: "“When two people are of one mind, their strength can cut through metal.” — I Ching",
-      zh: "“二人同心，其利断金。”——《周易》",
-    },
-    date: "2026.06",
-    dateTime: "2026-06",
-    rare: true,
-  },
-  {
-    id: "views-million",
-    icon: "views",
-    title: { en: "One Million Views", zh: "百万浏览" },
-    detail: {
-      en: "Surpassed one million total views on CSDN.",
-      zh: "CSDN 博客累计浏览量突破 100 万。",
-    },
-    quote: {
-      en: "“Writing is an affair of eternity; its gains and losses are known in the heart.” — Du Fu",
-      zh: "“文章千古事，得失寸心知。”——杜甫",
-    },
-    date: "2025.08",
-    dateTime: "2025-08",
-    rare: true,
-  },
-];
-
-const pixelArt: Record<AchievementIconName, { pixels: string[]; palette: Record<string, string> }> = {
-  birth: {
-    pixels: [
-      "....YY....",
-      "....YY....",
-      "...PPPP...",
-      "..WWWWWW..",
-      "..WPPPPW..",
-      "..WWWWWW..",
-      ".BBBBBBBB.",
-      ".BWWWWWWB.",
-      ".BBBBBBBB.",
-      "..........",
-    ],
-    palette: { Y: "#f6c453", P: "#e788a9", W: "#fff1d1", B: "#8f5f42" },
-  },
-  followers: {
-    pixels: [
-      "..SS..SS..",
-      ".SFFS.SFFS",
-      ".SFFS.SFFS",
-      "..SS..SS..",
-      ".BBBBBBBB.",
-      "BBB.BB.BBB",
-      "BB..BB..BB",
-      "BB..BB..BB",
-      "..........",
-      "..........",
-    ],
-    palette: { S: "#5b5b71", F: "#f2c7a0", B: "#5b86c5" },
-  },
-  views: {
-    pixels: [
-      "..........",
-      "...KKKK...",
-      ".KKWWWWKK.",
-      "KKWCCCCWKK",
-      "KWCCDDCCWK",
-      "KWCDDDDCWK",
-      "KWCCDDCCWK",
-      "KKWCCCCWKK",
-      ".KKWWWWKK.",
-      "...KKKK...",
-    ],
-    palette: { K: "#445063", W: "#eef2f4", C: "#58a8c4", D: "#26384c" },
-  },
-  merge: {
-    pixels: [
-      "..GG......",
-      ".GWWG.....",
-      ".GWWG..GG.",
-      "..GG..GWWG",
-      "..G...GWWG",
-      "..G....GG.",
-      "..G...GG..",
-      "..G..GG...",
-      "..GGGG....",
-      "...GG.....",
-    ],
-    palette: { G: "#4fa66a", W: "#dff5e5" },
-  },
-  rank: {
-    pixels: [
-      "....GG....",
-      "..GGGGGG..",
-      ".G..GG..G.",
-      ".G..GG..G.",
-      "..GGGGGG..",
-      "...GGGG...",
-      "....GG....",
-      "...BBBB...",
-      "..BBBBBB..",
-      ".BBBBBBBB.",
-    ],
-    palette: { G: "#d5ad4f", B: "#65769a" },
-  },
-  silver: {
-    pixels: [
-      "..BB..BB..",
-      "..BBBBBB..",
-      "...BBBB...",
-      "...BBBB...",
-      "..SSSSSS..",
-      ".SWWWWWS..",
-      ".SWWKKWS..",
-      ".SWWWWWS..",
-      "..SSSSSS..",
-      "...SSSS...",
-    ],
-    palette: { B: "#5f7199", S: "#8c969f", W: "#e9ecee", K: "#bac1c5" },
-  },
-};
 
 const languageChangeEvent = "site-language-change";
 
@@ -468,6 +264,8 @@ const publications: Publication[] = [
     tagZh: "Coding Agent",
     topics: ["Coding Agent", "Benchmark"],
     image: publicAsset("/assets/papers/bird-history-card.jpg"),
+    paper: "https://arxiv.org/abs/2608.29345",
+    code: "https://github.com/zjuidg/BIRD-History",
   },
   {
     year: "2026",
@@ -493,6 +291,8 @@ const publications: Publication[] = [
     tagZh: "多模态",
     topics: ["Multimodal", "Benchmark"],
     image: publicAsset("/assets/papers/modality-fault-lines-card.jpg"),
+    paper: "https://arxiv.org/abs/2608.29278",
+    project: "https://github.com/Zhaolu-K/ModalityFaultLines-SCEval",
   },
   {
     year: "2026",
@@ -694,20 +494,13 @@ function PaperEntry({ publication, language }: { publication: Publication; langu
 function Sidebar({
   language,
   onCopy,
-  onProfileClick,
 }: {
   language: Language;
   onCopy: (value: string, label: string) => void;
-  onProfileClick: () => void;
 }) {
   return (
     <aside className="sidebar">
-      <button
-        className="profile-photo-trigger"
-        type="button"
-        aria-label={language === "zh" ? "个人照片" : "Profile photo"}
-        onClick={onProfileClick}
-      >
+      <div className="profile-photo-frame">
         <img
           className="profile-photo"
           src={publicAsset("/assets/profile-optimized.jpg")}
@@ -718,7 +511,7 @@ function Sidebar({
           decoding="async"
           draggable={false}
         />
-      </button>
+      </div>
       <h1>Qiming Shi</h1>
       <p className="chinese-name">史启明</p>
 
@@ -764,6 +557,7 @@ function Sidebar({
         <span>{language === "zh" ? "自然语言处理" : "Natural Language Processing"}</span>
         <span>{language === "zh" ? "人机交互" : "Human-Computer Interaction"}</span>
         <span>{language === "zh" ? "智能体强化学习" : "Agentic RL"}</span>
+        <span>AI Business</span>
       </div>
 
     </aside>
@@ -772,13 +566,11 @@ function Sidebar({
 
 function PageNav({
   activeTab,
-  achievementsUnlocked,
   language,
   onSelect,
   onLanguageChange,
 }: {
   activeTab: Tab;
-  achievementsUnlocked: boolean;
   language: Language;
   onSelect: (tab: Tab) => void;
   onLanguageChange: (language: Language) => void;
@@ -786,9 +578,7 @@ function PageNav({
   return (
     <nav className="page-nav" aria-label={language === "zh" ? "主要页面" : "Main sections"}>
       <div className="page-tabs">
-        {tabs
-          .filter((tab) => tab.id !== "achievements" || achievementsUnlocked)
-          .map((tab) => (
+        {tabs.map((tab) => (
             <button
               key={tab.id}
               type="button"
@@ -835,98 +625,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function PixelIcon({
-  name,
-  label,
-  compact = false,
-  rare = false,
-}: {
-  name: AchievementIconName;
-  label: string;
-  compact?: boolean;
-  rare?: boolean;
-}) {
-  const art = pixelArt[name];
-
-  return (
-    <span
-      className={`pixel-icon ${compact ? "compact" : ""} ${rare ? "rare" : ""}`}
-      role="img"
-      aria-label={label}
-    >
-      <span className="pixel-icon-grid" aria-hidden="true">
-        {art.pixels.flatMap((row, rowIndex) =>
-          Array.from(row).map((pixel, columnIndex) => (
-            <span
-              className="pixel"
-              key={`${rowIndex}-${columnIndex}`}
-              style={pixel === "." ? undefined : { backgroundColor: art.palette[pixel] }}
-            />
-          )),
-        )}
-      </span>
-    </span>
-  );
-}
-
-function Achievements({ language }: { language: Language }) {
-  const timelineAchievements = [...achievements].sort((a, b) =>
-    b.dateTime.localeCompare(a.dateTime),
-  );
-
-  return (
-    <div className="page achievements-page" lang={language === "zh" ? "zh-CN" : "en"}>
-      <section className="content-section achievement-showcase">
-        <SectionTitle>{language === "zh" ? "成就图鉴" : "Achievement Showcase"}</SectionTitle>
-        <div className="achievement-shelf" role="list" aria-label={language === "zh" ? "全部已解锁成就" : "All unlocked achievements"}>
-          {achievements.map((achievement) => (
-            <div
-              className="achievement-badge"
-              role="listitem"
-              tabIndex={0}
-              aria-label={achievement.title[language]}
-              key={achievement.id}
-            >
-              <PixelIcon
-                name={achievement.icon}
-                label={achievement.title[language]}
-                rare={achievement.rare}
-              />
-              <span className="achievement-tooltip" role="tooltip">
-                {achievement.title[language]}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="content-section achievement-history">
-        <SectionTitle>{language === "zh" ? "成就时间线" : "Achievement Timeline"}</SectionTitle>
-        <div className="achievement-timeline">
-          {timelineAchievements.map((achievement) => (
-            <article className="achievement-row" key={achievement.id}>
-              <time dateTime={achievement.dateTime}>{achievement.date}</time>
-              <div className="achievement-event">
-                <PixelIcon
-                  name={achievement.icon}
-                  label={achievement.title[language]}
-                  compact
-                  rare={achievement.rare}
-                />
-                <div className="achievement-copy">
-                  <h3>{achievement.title[language]}</h3>
-                  <p className="achievement-quote">{achievement.quote[language]}</p>
-                  <p className="achievement-detail">{achievement.detail[language]}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
 function About({ language, onSeeAll }: { language: Language; onSeeAll: () => void }) {
   const [showAllNews, setShowAllNews] = useState(false);
   const featured = [
@@ -969,14 +667,10 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
               共同指导。
             </p>
             <p>
-              我的研究位于<strong>自然语言处理</strong>、<strong>人机交互</strong>和
-              <strong>数据智能</strong>的交叉领域。我致力于构建能够在交互中持续学习、
-              在长程任务中使用工具，并始终以决策相关数据和上下文为依据的智能体。
-            </p>
-            <p>
-              近期，我主要关注<strong>智能体强化学习</strong>、<strong>自进化系统</strong>和
-              <strong>人机协作</strong>，尤其对细粒度信用分配、长程连贯性，以及让模型行为更易于
-              检查和优化的交互式系统感兴趣。
+              我研究<strong>长程语言智能体</strong>与<strong>递归自我改进（RSI）</strong>，
+              重点关注 <strong>AI Business</strong>。结合<strong>自然语言处理</strong>、
+              <strong>人机交互</strong>和<strong>智能体强化学习</strong>，
+              我探索智能体如何从反馈中学习，改进决策、技能与工具，以支持零售场景的自主经营。
             </p>
           </>
         ) : (
@@ -1005,16 +699,12 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
               .
             </p>
             <p>
-              My research lies at the intersection of <strong>natural language processing</strong>,{" "}
-              <strong>human-computer interaction</strong>, and <strong>data intelligence</strong>.
-              I build learning agents that improve through interaction, use tools over long
-              horizons, and remain grounded in the data and context surrounding their decisions.
-            </p>
-            <p>
-              Recently, I have focused on <strong>agentic reinforcement learning</strong>,{" "}
-              <strong>Self-Evolving systems</strong>, and <strong>human–AI collaboration</strong>,
-              with particular interest in fine-grained credit assignment, long-term coherence,
-              and interactive systems that make model behavior easier to inspect and refine.
+              I study <strong>long-horizon language agents</strong> and{" "}
+              <strong>recursive self-improvement (RSI)</strong>, with a focus on{" "}
+              <strong>AI Business</strong>. Drawing on <strong>natural language processing</strong>,{" "}
+              <strong>human-computer interaction</strong>, and{" "}
+              <strong>agentic reinforcement learning</strong>, I explore how agents learn from
+              feedback to improve their decisions, skills, and tools for autonomous retail operations.
             </p>
           </>
         )}
@@ -1030,15 +720,11 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
                 <>
                   我们的三篇论文：<strong>SPADER</strong>、<strong>BIRD-History</strong> 和{" "}
                   <strong>Modality Fault Lines</strong> 被 <strong>EMNLP 2026</strong> 接收。
-                  <br />
-                  BIRD-History 与 Modality Fault Lines 的论文即将上线。
                 </>
               ) : (
                 <>
                   Three papers: <strong>SPADER</strong>, <strong>BIRD-History</strong>, and{" "}
                   <strong>Modality Fault Lines</strong> were accepted to <strong>EMNLP 2026</strong>.
-                  <br />
-                  Papers coming soon for BIRD-History and Modality Fault Lines.
                 </>
               )}
             </p>
@@ -1222,10 +908,24 @@ function Vita({ language }: { language: Language }) {
       <section className="content-section vita-detail-section">
         <SectionTitle>{language === "zh" ? "实习经历" : "Experience"}</SectionTitle>
         <VitaRow
-          when={language === "zh" ? "2026.05 — 至今" : "2026.05 — Present"}
+          when={language === "zh" ? "2026.09 — 至今" : "2026.09 — Present"}
+          title={language === "zh" ? "算法实习生" : "Algorithm Intern"}
+          meta={language === "zh" ? "阶跃星辰 · 基模后训练 · 上海" : "StepFun · Foundation Model Post-Training · Shanghai"}
+          logo={publicAsset("/assets/logos/stepfun.svg")}
+          logoAlt={language === "zh" ? "阶跃星辰标志" : "StepFun logo"}
+        >
+          <p>
+            {language === "zh"
+              ? "参与 AI Business 能力建设，围绕自动售货柜与商超 Agent 自主经营，构建覆盖采购、补货、定价与库存决策的长程 Benchmark，并开展强化学习后训练。"
+              : "Developing AI Business capabilities for autonomous vending and supermarket operations: building a long-horizon benchmark for procurement, replenishment, pricing, and inventory decisions, and using it for RL post-training."}
+          </p>
+          <p className="keywords">Env Scaling · Benchmark · Agentic RL</p>
+        </VitaRow>
+        <VitaRow
+          when="2026.05 — 2026.09"
           title={language === "zh" ? "算法实习生" : "Algorithm Intern"}
           meta={language === "zh" ? "阿里巴巴集团 · 1688 · 杭州" : "Alibaba Group · 1688 · Hangzhou"}
-          logo={publicAsset("/assets/logos/alibaba.png")}
+          logo={publicAsset("/assets/logos/alibaba-group-mark.png")}
           logoAlt={language === "zh" ? "阿里巴巴集团标志" : "Alibaba Group logo"}
         >
           <p>
@@ -1250,22 +950,6 @@ function Vita({ language }: { language: Language }) {
               : "Wide Search Agent, including SFT, reward modeling, RL, and step-wise credit assignment for long-horizon tool use."}
           </p>
           <p className="keywords">{language === "zh" ? "智能体强化学习" : "Agentic RL"}</p>
-        </VitaRow>
-        <VitaRow
-          when="2025.07 — 2025.12"
-          title={language === "zh" ? "算法实习生" : "Algorithm Intern"}
-          meta={language === "zh" ? "中航工业 · 西飞 · 西安" : "AVIC · Xifei · Xi'an"}
-          logo={publicAsset("/assets/logos/avic.svg")}
-          logoAlt={language === "zh" ? "中航工业西飞标志" : "AVIC Xifei logo"}
-        >
-          <p>
-            {language === "zh"
-              ? "面向 Coding Agent 的运行时数据感知，以及自然语言转 SQL 系统中的隐性业务知识对齐。"
-              : "Runtime data awareness for Coding Agent systems and alignment of implicit business knowledge for text-to-SQL systems."}
-          </p>
-          <p className="keywords">
-            {language === "zh" ? "Coding Agent · 自然语言转 SQL · 数据上下文" : "Coding Agent · Text-to-SQL · Data context"}
-          </p>
         </VitaRow>
       </section>
 
@@ -1345,9 +1029,6 @@ function Publications({ language }: { language: Language }) {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>("about");
-  const [achievementsUnlocked, setAchievementsUnlocked] = useState(false);
-  const achievementsUnlockedRef = useRef(false);
-  const profileClickSequence = useRef({ count: 0, lastClickAt: 0 });
   const language = useSyncExternalStore<Language>(
     subscribeToLanguage,
     getLanguageSnapshot,
@@ -1358,11 +1039,6 @@ export default function Home() {
   useEffect(() => {
     const updateFromHash = () => {
       const hash = window.location.hash.replace("#", "") as Tab;
-      if (hash === "achievements" && !achievementsUnlockedRef.current) {
-        setActiveTab("about");
-        window.history.replaceState(null, "", "#about");
-        return;
-      }
       if (tabs.some((tab) => tab.id === hash)) setActiveTab(hash);
     };
     updateFromHash();
@@ -1375,7 +1051,6 @@ export default function Home() {
   }, [language]);
 
   const selectTab = (tab: Tab, fromSeeAll = false) => {
-    if (tab === "achievements" && !achievementsUnlockedRef.current) return;
     setActiveTab(tab);
     window.history.replaceState(null, "", `#${tab}`);
     if (window.matchMedia("(min-width: 781px)").matches) {
@@ -1386,21 +1061,6 @@ export default function Home() {
         window.scrollTo({ top: contentColumn?.offsetTop ?? 0, behavior: "smooth" });
       });
     }
-  };
-
-  const handleProfileClick = () => {
-    if (achievementsUnlockedRef.current) return;
-
-    const now = Date.now();
-    const withinClickWindow = now - profileClickSequence.current.lastClickAt <= profileClickWindow;
-    const nextCount = withinClickWindow ? profileClickSequence.current.count + 1 : 1;
-    profileClickSequence.current = { count: nextCount, lastClickAt: now };
-
-    if (nextCount < 5) return;
-
-    achievementsUnlockedRef.current = true;
-    profileClickSequence.current = { count: 0, lastClickAt: 0 };
-    setAchievementsUnlocked(true);
   };
 
   const changeLanguage = (nextLanguage: Language) => {
@@ -1425,11 +1085,10 @@ export default function Home() {
 
   return (
     <main className="site-shell">
-      <Sidebar language={language} onCopy={copyContact} onProfileClick={handleProfileClick} />
+      <Sidebar language={language} onCopy={copyContact} />
       <div className="content-column">
         <PageNav
           activeTab={activeTab}
-          achievementsUnlocked={achievementsUnlocked}
           language={language}
           onSelect={selectTab}
           onLanguageChange={changeLanguage}
@@ -1440,7 +1099,6 @@ export default function Home() {
           ) : null}
           {activeTab === "vita" ? <Vita language={language} /> : null}
           {activeTab === "publications" ? <Publications language={language} /> : null}
-          {activeTab === "achievements" ? <Achievements language={language} /> : null}
         </div>
       </div>
       <div className={`copy-toast ${copyMessage ? "visible" : ""}`} role="status">
