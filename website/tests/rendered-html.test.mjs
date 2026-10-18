@@ -29,6 +29,10 @@ test("exports the homepage as static HTML", async () => {
   assert.ok(merchantBenchHtml.indexOf(">project</a>") < merchantBenchHtml.indexOf(">abstract</button>"));
   assert.match(html, /class="hf-news-highlight">🏆 #1 Paper of the Day<\/strong>/);
   assert.match(html, /class="hf-daily-link"/);
+  assert.match(html, /class="media-coverage-link"/);
+  assert.match(html, /class="media-news-highlight"/);
+  assert.match(html, /机器之心 · Synced/);
+  assert.match(html, /mp\.weixin\.qq\.com\/s\/go7vvpRyYFSvUp7BffmNTA/);
   assert.doesNotMatch(html, /Released <a [^>]*><strong>MerchantBench<\/strong><\/a>/);
   assert.doesNotMatch(html, /Released <strong>SPADER<\/strong> with code and model weights/);
   assert.match(html, /Long-Horizon/);
@@ -101,8 +105,20 @@ test("uses Coding Agent consistently instead of Code LLM", async () => {
   assert.doesNotMatch(page, /Code\s*LLMs?|代码大模型/i);
 });
 
-test("shows four news entries by default and can reveal the rest", async () => {
+test("shows recent news in order and can reveal older entries", async () => {
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const newsStart = page.indexOf('language === "zh" ? "动态" : "News"');
+  const newsEnd = page.indexOf('language === "zh" ? "精选论文" : "Selected Publications"', newsStart);
+  const news = page.slice(newsStart, newsEnd);
+
+  assert.ok(newsStart >= 0 && newsEnd > newsStart);
+  assert.ok(news.indexOf("2026.10") < news.indexOf("2026.09"));
+  assert.ok(news.indexOf("2026.09") < news.indexOf("2026.08"));
+  assert.match(news, /<strong>SPADER<\/strong> was featured by/);
+  assert.match(news, /机器之心 \(Synced\)/);
+  assert.match(news, /className="media-news-highlight" href=\{spaderCoverageUrl\}/);
+  assert.match(news, /Joined StepFun to work on AI Business/);
+  assert.match(news, /className="dated-row" hidden=\{!showAllNews\}>\s*<time>2026\.05<\/time>/);
 
   assert.match(
     page,

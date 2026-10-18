@@ -9,6 +9,7 @@ const siteBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const publicAsset = (path: string) => `${siteBasePath}${path}`;
 const merchantBenchProjectUrl =
   "https://air.1688.com/kapp/next1688/merchantbench/?spm=defwork.home.0.0.7f8c530dSdRT9v";
+const spaderCoverageUrl = "https://mp.weixin.qq.com/s/go7vvpRyYFSvUp7BffmNTA";
 
 type Publication = {
   year: string;
@@ -28,6 +29,7 @@ type Publication = {
   paper?: string;
   code?: string;
   hfPaper?: string;
+  mediaCoverage?: string;
 };
 
 const tabs: { id: Tab; label: Record<Language, string> }[] = [
@@ -248,6 +250,7 @@ const publications: Publication[] = [
     pdf: publicAsset("/papers/spader.pdf"),
     paper: "https://arxiv.org/abs/2606.00593",
     code: "https://github.com/KhanCold/spader",
+    mediaCoverage: spaderCoverageUrl,
   },
   {
     year: "2026",
@@ -417,6 +420,12 @@ function PaperLinks({
         <a className="hf-daily-link" href={publication.hfPaper} target="_blank" rel="noreferrer">
           <span aria-hidden="true">🤗</span>
           {language === "zh" ? "HF 日榜 #1" : "HF Daily #1"}
+        </a>
+      ) : null}
+      {publication.mediaCoverage ? (
+        <a className="media-coverage-link" href={publication.mediaCoverage} target="_blank" rel="noreferrer">
+          <span aria-hidden="true">✦</span>
+          {language === "zh" ? "机器之心报道" : "机器之心 · Synced"}
         </a>
       ) : null}
       {publication.project ? (
@@ -714,6 +723,34 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
         <SectionTitle>{language === "zh" ? "动态" : "News"}</SectionTitle>
         <div className="dated-list" id="news-list">
           <div className="dated-row">
+            <time>2026.10</time>
+            <p>
+              {language === "zh" ? (
+                <>
+                  <strong>SPADER</strong> 获{" "}
+                  <a className="media-news-highlight" href={spaderCoverageUrl} target="_blank" rel="noreferrer">
+                    ✦ 机器之心报道
+                  </a>。
+                </>
+              ) : (
+                <>
+                  <strong>SPADER</strong> was featured by{" "}
+                  <a className="media-news-highlight" href={spaderCoverageUrl} target="_blank" rel="noreferrer">
+                    ✦ 机器之心 (Synced)
+                  </a>.
+                </>
+              )}
+            </p>
+          </div>
+          <div className="dated-row">
+            <time>2026.09</time>
+            <p>
+              {language === "zh"
+                ? "加入阶跃星辰，开展 AI Business 方向的工作。"
+                : "Joined StepFun to work on AI Business."}
+            </p>
+          </div>
+          <div className="dated-row">
             <time>2026.08</time>
             <p>
               {language === "zh" ? (
@@ -761,7 +798,7 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
               )}
             </p>
           </div>
-          <div className="dated-row">
+          <div className="dated-row" hidden={!showAllNews}>
             <time>2026.05</time>
             <p>
               {language === "zh"
