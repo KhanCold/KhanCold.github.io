@@ -193,7 +193,7 @@ const publications: Publication[] = [
     venue: "arXiv 2026",
     tag: "Long-Horizon",
     tagZh: "长程智能体",
-    topics: ["Long-Horizon", "Benchmark"],
+    topics: ["Long-Horizon", "Benchmark", "AI Business Operations"],
     image: publicAsset("/assets/papers/merchantbench-card.jpg?v=c49cd1c5"),
     project: merchantBenchProjectUrl,
     pdf: "https://arxiv.org/pdf/2607.28956",
@@ -487,7 +487,9 @@ function PaperEntry({ publication, language }: { publication: Publication; langu
         <div className="paper-topics" aria-label={language === "zh" ? "论文主题" : "Paper topics"}>
           <span className="topics-label">{language === "zh" ? "主题" : "Topics"}</span>
           {publication.topics.map((topic) => (
-            <span className="topic-tag" key={topic}>{topic}</span>
+            <span className="topic-tag" key={topic}>
+              {language === "zh" && topic === "AI Business Operations" ? "AI 商业运营" : topic}
+            </span>
           ))}
         </div>
         {abstractOpen ? (
@@ -566,7 +568,7 @@ function Sidebar({
         <span>{language === "zh" ? "自然语言处理" : "Natural Language Processing"}</span>
         <span>{language === "zh" ? "人机交互" : "Human-Computer Interaction"}</span>
         <span>{language === "zh" ? "智能体强化学习" : "Agentic RL"}</span>
-        <span>AI Business</span>
+        <span>{language === "zh" ? "AI 商业运营" : "AI Business Operations"}</span>
       </div>
 
     </aside>
@@ -677,7 +679,7 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
             </p>
             <p>
               我研究<strong>长程语言智能体</strong>与<strong>递归自我改进（RSI）</strong>，
-              重点关注 <strong>AI Business</strong>。结合<strong>自然语言处理</strong>、
+              重点关注 <strong>AI 商业运营</strong>。结合<strong>自然语言处理</strong>、
               <strong>人机交互</strong>和<strong>智能体强化学习</strong>，
               我探索智能体如何从反馈中学习，改进决策、技能与工具，以支持零售场景的自主经营。
             </p>
@@ -710,7 +712,7 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
             <p>
               I study <strong>long-horizon language agents</strong> and{" "}
               <strong>recursive self-improvement (RSI)</strong>, with a focus on{" "}
-              <strong>AI Business</strong>. Drawing on <strong>natural language processing</strong>,{" "}
+              <strong>AI Business Operations</strong>. Drawing on <strong>natural language processing</strong>,{" "}
               <strong>human-computer interaction</strong>, and{" "}
               <strong>agentic reinforcement learning</strong>, I explore how agents learn from
               feedback to improve their decisions, skills, and tools for autonomous retail operations.
@@ -993,6 +995,10 @@ function Vita({ language }: { language: Language }) {
       <section className="content-section">
         <SectionTitle>{language === "zh" ? "荣誉奖项" : "Awards"}</SectionTitle>
         <VitaRow
+          when="2026"
+          title={language === "zh" ? "国家奖学金" : "National Scholarship"}
+        />
+        <VitaRow
           when="2023"
           title={language === "zh" ? "小岛康誉奖学金" : "Kojima Yasuhiro Scholarship"}
           meta={language === "zh" ? "前 1%" : "Top 1%"}
@@ -1021,6 +1027,10 @@ function Vita({ language }: { language: Language }) {
 
       <section className="content-section">
         <SectionTitle>{language === "zh" ? "社区服务" : "Service"}</SectionTitle>
+        <VitaRow
+          when="2026"
+          title={language === "zh" ? "AAAI、WWW 审稿人" : "AAAI & WWW Reviewer"}
+        />
         <VitaRow
           when="2026"
           title={

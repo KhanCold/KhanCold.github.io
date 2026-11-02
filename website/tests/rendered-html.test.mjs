@@ -65,7 +65,7 @@ test("keeps the Chinese About copy aligned with the English research focus", asy
 
   assert.match(about, /长程语言智能体/);
   assert.match(about, /递归自我改进（RSI）/);
-  assert.match(about, /重点关注 <strong>AI Business<\/strong>/);
+  assert.match(about, /重点关注 <strong>AI 商业运营<\/strong>/);
   assert.doesNotMatch(about, /数据智能|近期，我主要关注/);
 });
 
