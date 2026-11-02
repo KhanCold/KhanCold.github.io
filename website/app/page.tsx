@@ -90,6 +90,32 @@ const publications: Publication[] = [
   {
     year: "2026",
     title:
+      "AutoVend: Benchmarking LLM Agents on Long-Horizon Autonomous Vending Operations",
+    authors: [
+      "Qiming Shi*",
+      "Yikun Li*",
+      "Beidi Luan",
+      "Rui Sun",
+      "Yan Ma",
+      "Jing Li",
+      "Daxin Jiang",
+      "Zuo Bai†",
+    ],
+    abstract:
+      "AutoVend evaluates whether LLM agents can sustain profitable vending operations when online decisions require physical execution. One agent operates 20 machines across five site types for 180 simulated days, coordinating assortment, pricing, procurement, and replenishment under shared inventory, delivery lead times, visit fees, expiration, and operating expenses. Experiments compare five LLM agents with a rule-based inventory controller; four perform below the baseline. Operational and trajectory analyses highlight challenges in allocating stock, planning feasible actions, controlling execution costs, and revising policies from feedback.",
+    abstractZh:
+      "AutoVend 评测大语言模型智能体能否将线上决策转化为可持续的售货经营收益。一个智能体在 180 个模拟日内管理五类点位的 20 台售货机，协调选品、定价、采购与补货，并面对共享库存、采购提前期、上门费用、商品过期和经营成本。五个受测 LLM 智能体中，四个未达到规则库存控制基线。运营与轨迹分析揭示了库存分配、可行行动规划、执行成本控制及依据反馈修订策略方面的困难。",
+    venue: "arXiv 2026",
+    tag: "Long-Horizon",
+    tagZh: "长程智能体",
+    topics: ["Long-Horizon", "Benchmark", "AI Business Operations"],
+    image: publicAsset("/assets/papers/autovend-card.jpg"),
+    pdf: "https://arxiv.org/pdf/2610.36980",
+    paper: "https://arxiv.org/abs/2610.36980",
+  },
+  {
+    year: "2026",
+    title:
       "Bidirectional Context Self-Distillation for Reinforcement Learning of Skill-Based LLM Agents",
     authors: [
       "Tianjun Pan",
@@ -487,9 +513,7 @@ function PaperEntry({ publication, language }: { publication: Publication; langu
         <div className="paper-topics" aria-label={language === "zh" ? "论文主题" : "Paper topics"}>
           <span className="topics-label">{language === "zh" ? "主题" : "Topics"}</span>
           {publication.topics.map((topic) => (
-            <span className="topic-tag" key={topic}>
-              {language === "zh" && topic === "AI Business Operations" ? "AI 商业运营" : topic}
-            </span>
+            <span className="topic-tag" key={topic}>{topic}</span>
           ))}
         </div>
         {abstractOpen ? (
@@ -639,6 +663,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 function About({ language, onSeeAll }: { language: Language; onSeeAll: () => void }) {
   const [showAllNews, setShowAllNews] = useState(false);
   const featured = [
+    "AutoVend",
     "MerchantBench",
     "SPADER",
     "SKILL-KD",
