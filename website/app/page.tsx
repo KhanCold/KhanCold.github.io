@@ -663,7 +663,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 function About({ language, onSeeAll }: { language: Language; onSeeAll: () => void }) {
   const [showAllNews, setShowAllNews] = useState(false);
   const featured = [
-    "AutoVend",
     "MerchantBench",
     "SPADER",
     "SKILL-KD",
