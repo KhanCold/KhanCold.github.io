@@ -90,6 +90,59 @@ const publications: Publication[] = [
   {
     year: "2026",
     title:
+      "LiveSearch: Questions as Executable Verifier Code for a Live Benchmark of Professional-Source Financial Search Agents",
+    authors: [
+      "Sinuo Wang",
+      "Wentao Zhao",
+      "Jiacheng Lu",
+      "Rui Sun",
+      "Beidi Luan",
+      "Qiming Shi",
+      "Jing Li",
+      "Daxin Jiang",
+      "Zuo Bai†",
+    ],
+    abstract:
+      "LiveSearch tests financial search agents against reference answers that keep pace with changing data. Each fixed question is linked to an executable program over a professional financial service, allowing its answer to be recomputed daily without manual relabeling or model-generated reference values. Question construction starts from tool outputs and programs; a language model supplies the wording. Six tool-using models score between 70.9% and 76.7% with general web search. During a three-day observation, reference values change for 70% of served questions, showing why current retrieval and per-question tracking matter beyond aggregate accuracy.",
+    abstractZh:
+      "LiveSearch 面向金融搜索智能体，将固定问题与专业金融数据服务上的可执行程序关联，使参考答案随数据变化自动每日更新，无需人工重新标注，也不由语言模型生成参考值。构建时先从工具返回的数据枚举程序，再由语言模型将其表述为问题。六个使用通用网页搜索的工具调用模型取得 70.9%–76.7% 的准确率。在连续三日的观测中，70% 的受测问题发生参考值变化，说明评测需要关注实时检索和逐题表现，而不能只看总体准确率。",
+    venue: "arXiv 2026",
+    tag: "Search Agent",
+    tagZh: "搜索智能体",
+    topics: ["Search Agent", "Benchmark", "Finance"],
+    image: publicAsset("/assets/papers/livesearch-card.jpg"),
+    pdf: "https://arxiv.org/pdf/2610.37166",
+    paper: "https://arxiv.org/abs/2610.37166",
+  },
+  {
+    year: "2026",
+    title:
+      "RubricAtlas: Mining Type-Level Rubrics from Expert Reports to Evaluate Deep Research Agents",
+    authors: [
+      "Delin Wang",
+      "Sinuo Wang",
+      "Rui Sun",
+      "Beidi Luan",
+      "Qiming Shi",
+      "Jing Li",
+      "Daxin Jiang",
+      "Zuo Bai†",
+    ],
+    abstract:
+      "RubricAtlas evaluates whether deep research reports deliver the analyses expected for a research type. It combines recurring requirements from expert reports about different research objects, then arranges evidence-linked binary checks under shared analytical questions. Analysis completeness is scored separately from argument validity. The resource draws on 3,079 Chinese financial reports across 99 research types. Experiments with ten agents show that reference selection affects both scores and rankings; two judging pipelines reach checkpoint agreement of κ = 0.71 and ranking agreement of Kendall τ = 0.87. Targeted deletions lower completeness scores, while added padding yields no detectable gain.",
+    abstractZh:
+      "RubricAtlas 评估深度研究报告是否完成同类研究所需的分析。它汇聚专家针对不同研究对象的报告，提炼共性的分析要求，并将可追溯到报告证据的二元检查项组织在共享分析问题之下，分别评估分析完整性与论证有效性。该资源基于 3,079 份中文金融研报，覆盖 99 类研究。对十个智能体的实验表明，参考报告的选择会影响得分和排名；两套评判流程的检查项一致性为 κ = 0.71，排名一致性为 Kendall τ = 0.87。定向删除分析内容会降低完整性得分，而填充篇幅未带来可检测的增益。",
+    venue: "arXiv 2026",
+    tag: "Deep Research",
+    tagZh: "深度研究",
+    topics: ["Deep Research", "Benchmark", "Finance"],
+    image: publicAsset("/assets/papers/rubricatlas-card.jpg"),
+    pdf: "https://arxiv.org/pdf/2610.36878",
+    paper: "https://arxiv.org/abs/2610.36878",
+  },
+  {
+    year: "2026",
+    title:
       "AutoVend: Benchmarking LLM Agents on Long-Horizon Autonomous Vending Operations",
     authors: [
       "Qiming Shi*",

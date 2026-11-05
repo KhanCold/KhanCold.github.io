@@ -249,6 +249,8 @@ test("includes assets required by GitHub Pages", async () => {
     access(new URL("assets/logos/alibaba-group-mark.png", outputRoot)),
     access(new URL("assets/logos/stepfun.svg", outputRoot)),
     access(new URL("assets/papers/merchantbench-card.jpg", outputRoot)),
+    access(new URL("assets/papers/livesearch-card.jpg", outputRoot)),
+    access(new URL("assets/papers/rubricatlas-card.jpg", outputRoot)),
     access(new URL("assets/papers/bcsd-card.jpg", outputRoot)),
     access(new URL("assets/papers/poem-card.jpg", outputRoot)),
     access(new URL("assets/papers/beyond-solution-centric-search-card.jpg", outputRoot)),
@@ -265,6 +267,12 @@ test("includes assets required by GitHub Pages", async () => {
 
   const config = await readFile(new URL("next.config.ts", projectRoot), "utf8");
   assert.match(config, /output:\s*["']export["']/);
+});
+
+test("keeps LiveSearch and RubricAtlas off the homepage", async () => {
+  const html = await readFile(new URL("index.html", outputRoot), "utf8");
+
+  assert.doesNotMatch(html, /LiveSearch|RubricAtlas|2610\.37166|2610\.36878/);
 });
 
 test("keeps the Zhejiang University logo clear of mobile education dates", async () => {
