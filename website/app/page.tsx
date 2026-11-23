@@ -149,6 +149,8 @@ const publications: Publication[] = [
       "Yikun Li*",
       "Beidi Luan",
       "Rui Sun",
+      "Sinuo Wang",
+      "Delin Wang",
       "Yan Ma",
       "Jing Li",
       "Daxin Jiang",
@@ -642,10 +644,9 @@ function Sidebar({
 
       <div className="sidebar-block interests">
         <strong>{language === "zh" ? "研究方向" : "Research Interests"}</strong>
-        <span>{language === "zh" ? "自然语言处理" : "Natural Language Processing"}</span>
-        <span>{language === "zh" ? "人机交互" : "Human-Computer Interaction"}</span>
-        <span>{language === "zh" ? "智能体强化学习" : "Agentic RL"}</span>
+        <span>{language === "zh" ? "智能体强化学习" : "Agentic Reinforcement Learning"}</span>
         <span>{language === "zh" ? "AI 商业运营" : "AI Business Operations"}</span>
+        <span>{language === "zh" ? "递归自我改进（RSI）" : "Recursive Self-Improvement (RSI)"}</span>
       </div>
 
     </aside>
@@ -754,12 +755,6 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
               </a>
               共同指导。
             </p>
-            <p>
-              我研究<strong>长程语言智能体</strong>与<strong>递归自我改进（RSI）</strong>，
-              重点关注 <strong>AI 商业运营</strong>。结合<strong>自然语言处理</strong>、
-              <strong>人机交互</strong>和<strong>智能体强化学习</strong>，
-              我探索智能体如何从反馈中学习，改进决策、技能与工具，以支持零售场景的自主经营。
-            </p>
           </>
         ) : (
           <>
@@ -786,16 +781,36 @@ function About({ language, onSeeAll }: { language: Language; onSeeAll: () => voi
               </a>
               .
             </p>
-            <p>
-              I study <strong>long-horizon language agents</strong> and{" "}
-              <strong>recursive self-improvement (RSI)</strong>, with a focus on{" "}
-              <strong>AI Business Operations</strong>. Drawing on <strong>natural language processing</strong>,{" "}
-              <strong>human-computer interaction</strong>, and{" "}
-              <strong>agentic reinforcement learning</strong>, I explore how agents learn from
-              feedback to improve their decisions, skills, and tools for autonomous retail operations.
-            </p>
           </>
         )}
+        <div className="research-interests">
+          <h3>{language === "zh" ? "研究兴趣：" : "Research Interests:"}</h3>
+          <ul>
+            <li>
+              <strong>Agentic Reinforcement Learning</strong>{" — "}
+              <span>{language === "zh"
+                ? "通过强化学习提升长程语言智能体的规划、工具使用与决策能力。"
+                : "Training long-horizon agents through reinforcement learning."}</span>
+            </li>
+            <li>
+              <strong>AI Business Operations</strong>{" — "}
+              <span>{language === "zh"
+                ? "探索 AI 智能体如何理解、协调和管理复杂的商业流程。"
+                : "Exploring how AI agents can understand, coordinate, and manage complex business processes."}</span>
+            </li>
+            <li>
+              <strong>Recursive Self-Improvement (RSI)</strong>{" — "}
+              <span>{language === "zh"
+                ? "探索 AI 系统如何自主提升自身能力。"
+                : "Exploring how AI systems can autonomously improve their own capabilities."}</span>
+            </li>
+          </ul>
+        </div>
+        <p className="phd-notice">
+          {language === "zh"
+            ? "🔍 正在寻找 2027 年秋季入学的 PhD 机会。"
+            : "🔍 Seeking PhD opportunities for Fall 2027 admission."}
+        </p>
       </section>
 
       <section className="content-section">
@@ -1074,6 +1089,7 @@ function Vita({ language }: { language: Language }) {
         <VitaRow
           when="2026"
           title={language === "zh" ? "国家奖学金" : "National Scholarship"}
+          meta={language === "zh" ? "前 1%" : "Top 1%"}
         />
         <VitaRow
           when="2023"
@@ -1106,7 +1122,7 @@ function Vita({ language }: { language: Language }) {
         <SectionTitle>{language === "zh" ? "社区服务" : "Service"}</SectionTitle>
         <VitaRow
           when="2026"
-          title={language === "zh" ? "AAAI、WWW 审稿人" : "AAAI & WWW Reviewer"}
+          title={language === "zh" ? "AAAI、ACL ARR、WWW 审稿人" : "AAAI, ACL ARR & WWW Reviewer"}
         />
         <VitaRow
           when="2026"

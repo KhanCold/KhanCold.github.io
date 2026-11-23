@@ -11,7 +11,7 @@ test("exports the homepage as static HTML", async () => {
   assert.match(html, /<title>Qiming Shi · 史启明<\/title>/);
   assert.match(html, /Agentic RL/);
   assert.match(html, /Research Interests[\s\S]*?AI Business/);
-  assert.match(html, /recursive self-improvement \(RSI\)/);
+  assert.match(html, /Recursive Self-Improvement \(RSI\)/);
   assert.doesNotMatch(html, /data intelligence|Recently, I have focused on/i);
   assert.match(html, /Wide Search Agent/);
   assert.match(html, /MerchantBench: Benchmarking LLM Agents/);
@@ -59,14 +59,44 @@ test("exports the homepage as static HTML", async () => {
   );
 });
 
-test("keeps the Chinese About copy aligned with the English research focus", async () => {
+test("shows three research interests with descriptions and bilingual copy", async () => {
+  const html = await readFile(new URL("index.html", outputRoot), "utf8");
   const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
-  const about = page.slice(page.indexOf("function About("), page.indexOf('language === "zh" ? "动态" : "News"'));
+  const interests = html.match(/<div class="research-interests">[\s\S]*?<\/ul>/)?.[0];
 
-  assert.match(about, /长程语言智能体/);
-  assert.match(about, /递归自我改进（RSI）/);
-  assert.match(about, /重点关注 <strong>AI 商业运营<\/strong>/);
-  assert.doesNotMatch(about, /数据智能|近期，我主要关注/);
+  assert.ok(interests);
+  assert.equal((interests.match(/<li>/g) ?? []).length, 3);
+  assert.equal((interests.match(/<strong>/g) ?? []).length, 3);
+  assert.match(interests, /<h3>Research Interests:<\/h3>/);
+  assert.match(interests, /<strong>Agentic Reinforcement Learning<\/strong>/);
+  assert.match(interests, /AI Business Operations/);
+  assert.match(interests, /understand, coordinate, and manage complex business processes/);
+  assert.match(interests, /autonomously improve their own capabilities/);
+  const sidebar = html.match(/<div class="sidebar-block interests">([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(sidebar);
+  assert.equal((sidebar.match(/<span>/g) ?? []).length, 3);
+  assert.match(sidebar, /Agentic Reinforcement Learning/);
+  assert.match(sidebar, /AI Business Operations/);
+  assert.match(sidebar, /Recursive Self-Improvement \(RSI\)/);
+  assert.match(interests, /Recursive Self-Improvement \(RSI\)/);
+  assert.match(page, /长程语言智能体/);
+  assert.match(page, /理解、协调和管理复杂的商业流程/);
+  assert.match(page, /递归自我改进/);
+});
+
+test("shows the Fall 2027 PhD notice", async () => {
+  const html = await readFile(new URL("index.html", outputRoot), "utf8");
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+
+  assert.match(html, /class="phd-notice">🔍 Seeking PhD opportunities for Fall 2027 admission\./);
+  assert.match(page, /🔍 正在寻找 2027 年秋季入学的 PhD 机会。/);
+});
+
+test("includes ACL ARR in the English and Chinese reviewer entries", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+
+  assert.match(page, /AAAI、ACL ARR、WWW 审稿人/);
+  assert.match(page, /AAAI, ACL ARR & WWW Reviewer/);
 });
 
 test("includes service entries below awards", async () => {
@@ -341,4 +371,20 @@ test("removes the Xifei internship and achievements easter egg", async () => {
   assert.doesNotMatch(css, /achievement|pixel-icon|profile-photo-trigger/i);
   assert.doesNotMatch(html, /profile-photo-trigger|Papers coming soon/);
   assert.match(html, /<div class="profile-photo-frame"><img/);
+});
+
+test("shows the National Scholarship ranking in both languages", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  assert.match(page, /title=\{language === "zh" \? "国家奖学金" : "National Scholarship"\}\s+meta=\{language === "zh" \? "前 1%" : "Top 1%"\}/);
+});
+
+test("keeps AutoVend authors in arXiv v2 order", async () => {
+  const page = await readFile(new URL("app/page.tsx", projectRoot), "utf8");
+  const entry = page.slice(page.indexOf('"AutoVend: Benchmarking'));
+  const authors = entry.match(/authors: \[([\s\S]*?)\]/)?.[1];
+  assert.ok(authors);
+  assert.deepEqual([...authors.matchAll(/"([^"]+)"/g)].map((match) => match[1]), [
+    "Qiming Shi*", "Yikun Li*", "Beidi Luan", "Rui Sun", "Sinuo Wang",
+    "Delin Wang", "Yan Ma", "Jing Li", "Daxin Jiang", "Zuo Bai†",
+  ]);
 });

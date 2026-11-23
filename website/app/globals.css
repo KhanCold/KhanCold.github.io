@@ -273,6 +273,37 @@ button {
   margin: 0 0 12px;
 }
 
+.research-interests {
+  margin-top: 22px;
+}
+
+.research-interests h3 {
+  margin: 0 0 10px;
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.research-interests ul {
+  margin: 0 0 18px;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+.research-interests li {
+  padding-left: 2px;
+  margin-bottom: 10px;
+}
+
+.research-interests li:last-child {
+  margin-bottom: 0;
+}
+
+.intro-section .phd-notice {
+  margin: 14px 0 24px;
+  color: #b42318;
+  font-weight: 600;
+}
+
 .content-section {
   margin-bottom: 54px;
 }
@@ -897,6 +928,7 @@ a.media-news-highlight:focus-visible {
 }
 
 @media (max-width: 560px) {
+
   .sidebar,
   .content-column {
     padding-right: 20px;
